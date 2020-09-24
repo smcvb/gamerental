@@ -12,13 +12,20 @@
 	<artifactId>gamerental</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gamerental</name>
-	<description>Sample application for Game Rental show casing Axon</description>
+	<description>Sample application for a Game Rental application show casing Axon</description>
 
 	<properties>
 		<java.version>11</java.version>
+		<axon.version>4.4.3</axon.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.axonframework</groupId>
+			<artifactId>axon-spring-boot-starter</artifactId>
+			<version>${axon.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
