@@ -9,6 +9,7 @@ import io.axoniq.demo.gamerental.coreapi.GameReturnedEvent;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.queryhandling.QueryHandler;
+import org.axonframework.queryhandling.QueryUpdateEmitter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,9 +21,11 @@ import java.util.stream.Collectors;
 class GameCatalogProjector {
 
     private final GameViewRepository repository;
+    private final QueryUpdateEmitter updateEmitter;
 
-    public GameCatalogProjector(GameViewRepository repository) {
+    public GameCatalogProjector(GameViewRepository repository, QueryUpdateEmitter updateEmitter) {
         this.repository = repository;
+        this.updateEmitter = updateEmitter;
     }
 
     @EventHandler
@@ -33,6 +36,8 @@ class GameCatalogProjector {
                                      event.getDescription(),
                                      event.isSingleplayer(),
                                      event.isMultiplayer()));
+
+        updateEmitter.emit(FullGameCatalogQuery.class, query -> true, event.getTitle());
     }
 
     @EventHandler
