@@ -53,10 +53,10 @@ class Game {
 
     @CommandHandler
     public void handle(ReturnGameCommand command) {
-        if (!renters.contains(command.getRenter())) {
+        if (!renters.contains(command.getReturner())) {
             throw new IllegalStateException("A game should be returned by someone who has actually rented it");
         }
-        apply(new GameReturnedEvent(gameIdentifier, command.getRenter()));
+        apply(new GameReturnedEvent(gameIdentifier, command.getReturner()));
     }
 
     @EventSourcingHandler
@@ -76,7 +76,7 @@ class Game {
     @EventSourcingHandler
     public void on(GameReturnedEvent event) {
         this.stock++;
-        this.renters.remove(event.getRenter());
+        this.renters.remove(event.getReturner());
     }
 
     public Game() {
