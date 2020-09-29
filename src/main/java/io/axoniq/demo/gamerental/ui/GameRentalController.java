@@ -25,6 +25,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.beans.ConstructorProperties;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +40,12 @@ class GameRentalController {
 
     public GameRentalController(ReactorCommandGateway commandGateway, ReactorQueryGateway queryGateway) {
         this.commandGateway = commandGateway;
+        commandGateway.registerDispatchInterceptor(cmd -> cmd.onErrorMap(GameRentalController::mapRemoteException));
+        commandGateway.registerResultHandlerInterceptor((cmd, result) -> result.timeout(Duration.ofMillis(500)));
+
         this.queryGateway = queryGateway;
+        queryGateway.registerDispatchInterceptor(query -> query.onErrorMap(GameRentalController::mapRemoteException));
+        queryGateway.registerResultHandlerInterceptor((query, result) -> result.timeout(Duration.ofMillis(500)));
     }
 
     @PostMapping("/register/{identifier}")
@@ -61,36 +67,31 @@ class GameRentalController {
     @PostMapping("/rent/{identifier}")
     public Mono<Object> rentGame(@PathVariable("identifier") String identifier,
                                  @RequestParam("renter") String renter) {
-        return commandGateway.send(new RentGameCommand(identifier, renter))
-                             .onErrorMap(this::mapRemoteException);
+        return commandGateway.send(new RentGameCommand(identifier, renter));
     }
 
     @PostMapping("/return/{identifier}")
     public Mono<Object> returnGame(@PathVariable("identifier") String identifier,
                                    @RequestParam("returner") String returner) {
-        return commandGateway.send(new ReturnGameCommand(identifier, returner))
-                             .onErrorMap(this::mapRemoteException);
+        return commandGateway.send(new ReturnGameCommand(identifier, returner));
     }
 
     @GetMapping("/{identifier}")
     public Mono<Game> findGame(@PathVariable("identifier") String identifier) {
-        return queryGateway.query(new FindGameQuery(identifier), Game.class)
-                           .onErrorMap(this::mapRemoteException);
+        return queryGateway.query(new FindGameQuery(identifier), Game.class);
     }
 
     @GetMapping("/catalog")
     public Mono<List<String>> findGameCatalog() {
-        return queryGateway.query(new FullGameCatalogQuery(), ResponseTypes.multipleInstancesOf(String.class))
-                           .onErrorMap(this::mapRemoteException);
+        return queryGateway.query(new FullGameCatalogQuery(), ResponseTypes.multipleInstancesOf(String.class));
     }
 
     @GetMapping(value = "/catalog/watch", produces = "text/event-stream")
     public Flux<String> watchGameCatalog() {
-        return queryGateway.subscriptionQueryMany(new FullGameCatalogQuery(), String.class)
-                           .onErrorMap(this::mapRemoteException);
+        return queryGateway.subscriptionQueryMany(new FullGameCatalogQuery(), String.class);
     }
 
-    private Throwable mapRemoteException(Throwable exception) {
+    private static Throwable mapRemoteException(Throwable exception) {
         if (exception instanceof CommandExecutionException) {
             Optional<Object> details = ((CommandExecutionException) exception).getDetails();
             if (details.isPresent()) {
