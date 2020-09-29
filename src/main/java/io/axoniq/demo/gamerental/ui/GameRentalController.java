@@ -53,13 +53,13 @@ class GameRentalController {
     }
 
     @PostMapping("/rent/{identifier}")
-    public Mono<Object> rentGame(@PathVariable("identifier") String identifier,
+    public Mono<Void> rentGame(@PathVariable("identifier") String identifier,
                                  @RequestParam("renter") String renter) {
         return commandGateway.send(new RentGameCommand(identifier, renter));
     }
 
     @PostMapping("/return/{identifier}")
-    public Mono<Object> returnGame(@PathVariable("identifier") String identifier,
+    public Mono<Void> returnGame(@PathVariable("identifier") String identifier,
                                    @RequestParam("returner") String returner) {
         return commandGateway.send(new ReturnGameCommand(identifier, returner));
     }
