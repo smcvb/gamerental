@@ -73,6 +73,7 @@ class GameCatalogProjector {
         return repository.findById(gameIdentifier)
                          .map(gameView -> new Game(
                                  gameView.getTitle(),
+                                 gameView.getReleaseDate(),
                                  gameView.getDescription(),
                                  gameView.isSingleplayer(),
                                  gameView.isMultiplayer()
