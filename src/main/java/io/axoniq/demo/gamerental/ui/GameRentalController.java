@@ -40,11 +40,15 @@ class GameRentalController {
 
     public GameRentalController(ReactorCommandGateway commandGateway, ReactorQueryGateway queryGateway) {
         this.commandGateway = commandGateway;
-        commandGateway.registerDispatchInterceptor(cmd -> cmd.onErrorMap(GameRentalController::mapRemoteException));
+        commandGateway.registerResultHandlerInterceptor(
+                (cmd, result) -> result.onErrorMap(GameRentalController::mapRemoteException)
+        );
         commandGateway.registerResultHandlerInterceptor((cmd, result) -> result.timeout(Duration.ofMillis(500)));
 
         this.queryGateway = queryGateway;
-        queryGateway.registerDispatchInterceptor(query -> query.onErrorMap(GameRentalController::mapRemoteException));
+        queryGateway.registerResultHandlerInterceptor(
+                (query, result) -> result.onErrorMap(GameRentalController::mapRemoteException)
+        );
         queryGateway.registerResultHandlerInterceptor((query, result) -> result.timeout(Duration.ofMillis(500)));
     }
 
