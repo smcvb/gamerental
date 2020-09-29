@@ -9,20 +9,20 @@ public class ReturnGameCommand {
 
     @TargetAggregateIdentifier
     private final String gameIdentifier;
-    private final String renter;
+    private final String returner;
 
-    @ConstructorProperties({"gameIdentifier", "renter"})
-    public ReturnGameCommand(String gameIdentifier, String renter) {
+    @ConstructorProperties({"gameIdentifier", "returner"})
+    public ReturnGameCommand(String gameIdentifier, String returner) {
         this.gameIdentifier = gameIdentifier;
-        this.renter = renter;
+        this.returner = returner;
     }
 
     public String getGameIdentifier() {
         return gameIdentifier;
     }
 
-    public String getRenter() {
-        return renter;
+    public String getReturner() {
+        return returner;
     }
 
     @Override
@@ -35,19 +35,19 @@ public class ReturnGameCommand {
         }
         ReturnGameCommand that = (ReturnGameCommand) o;
         return Objects.equals(gameIdentifier, that.gameIdentifier) &&
-                Objects.equals(renter, that.renter);
+                Objects.equals(returner, that.returner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(gameIdentifier, renter);
+        return Objects.hash(gameIdentifier, returner);
     }
 
     @Override
     public String toString() {
         return "ReturnGameCommand{" +
                 "gameIdentifier='" + gameIdentifier + '\'' +
-                ", renter='" + renter + '\'' +
+                ", returner='" + returner + '\'' +
                 '}';
     }
 }
