@@ -1,13 +1,16 @@
 package io.axoniq.demo.gamerental.query;
 
+import io.axoniq.demo.gamerental.coreapi.ExceptionStatusCode;
 import io.axoniq.demo.gamerental.coreapi.FindGameQuery;
 import io.axoniq.demo.gamerental.coreapi.FullGameCatalogQuery;
 import io.axoniq.demo.gamerental.coreapi.Game;
 import io.axoniq.demo.gamerental.coreapi.GameRegisteredEvent;
 import io.axoniq.demo.gamerental.coreapi.GameRentedEvent;
 import io.axoniq.demo.gamerental.coreapi.GameReturnedEvent;
+import io.axoniq.demo.gamerental.coreapi.RentalQueryException;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.queryhandling.QueryHandler;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
 import org.springframework.stereotype.Component;
@@ -80,5 +83,16 @@ class GameCatalogProjector {
                          .orElseThrow(() -> new IllegalArgumentException(
                                  "Game with id [" + gameIdentifier + "] could no be found"
                          ));
+    }
+
+    @ExceptionHandler(resultType = IllegalArgumentException.class)
+    public void handle(IllegalArgumentException exception) {
+        ExceptionStatusCode statusCode;
+        if (exception.getMessage().contains("could no be found")) {
+            statusCode = ExceptionStatusCode.GAME_NOT_FOUND;
+        } else {
+            statusCode = ExceptionStatusCode.UNKNOWN_EXCEPTION;
+        }
+        throw new RentalQueryException(exception.getMessage(), exception, statusCode);
     }
 }

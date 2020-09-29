@@ -1,13 +1,16 @@
 package io.axoniq.demo.gamerental.command;
 
+import io.axoniq.demo.gamerental.coreapi.ExceptionStatusCode;
 import io.axoniq.demo.gamerental.coreapi.GameRegisteredEvent;
 import io.axoniq.demo.gamerental.coreapi.GameRentedEvent;
 import io.axoniq.demo.gamerental.coreapi.GameReturnedEvent;
 import io.axoniq.demo.gamerental.coreapi.RegisterGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentGameCommand;
+import io.axoniq.demo.gamerental.coreapi.RentalCommandException;
 import io.axoniq.demo.gamerental.coreapi.ReturnGameCommand;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
@@ -77,6 +80,21 @@ class Game {
     public void on(GameReturnedEvent event) {
         this.stock++;
         this.renters.remove(event.getRenter());
+    }
+
+    @ExceptionHandler(resultType = IllegalStateException.class)
+    public void handle(IllegalStateException exception) {
+        ExceptionStatusCode statusCode;
+        if (exception.getMessage().contains("Insufficient")) {
+            statusCode = ExceptionStatusCode.INSUFFICIENT;
+        } else if (exception.getMessage().contains("not been released")) {
+            statusCode = ExceptionStatusCode.UNRELEASED;
+        } else if (exception.getMessage().contains("actually rented it")) {
+            statusCode = ExceptionStatusCode.DIFFERENT_RETURNER;
+        } else {
+            statusCode = ExceptionStatusCode.UNKNOWN_EXCEPTION;
+        }
+        throw new RentalCommandException(exception.getMessage(), exception, statusCode);
     }
 
     public Game() {
