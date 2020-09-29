@@ -1,0 +1,92 @@
+### GAME REGISTRATION
+
+POST http://localhost:8080/rental/register/1234
+Content-Type: application/json
+
+{
+  "title": "Doom",
+  "releaseDate": "1993-12-10T00:00:01.000Z",
+  "description": "That one shooter you can play on virtually any device",
+  "singleplayer": true,
+  "multiplayer": true
+}
+
+###
+
+POST http://localhost:8080/rental/register/5678
+Content-Type: application/json
+
+{
+  "title": "Command & Conquer: Tiberian Dawn",
+  "releaseDate": "1995-09-26T00:00:01.000Z",
+  "description": "First real RTS break through",
+  "singleplayer": true,
+  "multiplayer": true
+}
+
+###
+
+POST http://localhost:8080/rental/register/9012
+Content-Type: application/json
+
+{
+  "title": "Halo: Combat Evolved",
+  "releaseDate": "2001-11-15T00:00:01.000Z",
+  "description": "The reason Xbox turned out to sell pretty well, because hot damn this is a good shooter",
+  "singleplayer": true,
+  "multiplayer": true
+}
+
+###
+
+POST http://localhost:8080/rental/register/3456
+Content-Type: application/json
+
+{
+  "title": "Final Fantasy VII, Remake",
+  "releaseDate": "2020-03-02T00:00:01.000Z",
+  "description": "Some RPG about a dude named Cloud and his party",
+  "singleplayer": true,
+  "multiplayer": false
+}
+
+###
+
+POST http://localhost:8080/rental/register/7890
+Content-Type: application/json
+
+{
+  "title": "Super Mario 3D All-Stars",
+  "releaseDate": "2020-09-18T00:00:01.000Z",
+  "description": "Three 3D versions of a plumber jumping on things",
+  "singleplayer": true,
+  "multiplayer": true
+}
+
+###
+
+POST http://localhost:8080/rental/register/1337
+Content-Type: application/json
+
+{
+  "title": "Cyberpunk 2077",
+  "releaseDate": "2020-11-19T00:00:01.000Z",
+  "description": "Just one of the most anticipated games of 2020 is all, from the creators of the Witcher 3",
+  "singleplayer": true,
+  "multiplayer": true
+}
+
+###
+
+POST http://localhost:8080/rental/register/9001
+Content-Type: application/json
+
+{
+  "title": "The Legend of Zelda: Breath of the Wild 2",
+  "releaseDate": "2021-03-25T00:00:01.000Z",
+  "description": "Amazing Action-Adventure about Zelda, or was it Link..?",
+  "singleplayer": true,
+  "multiplayer": false
+}
+
+###

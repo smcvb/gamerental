@@ -1,0 +1,69 @@
+### Find Cyberpunk 2077
+
+GET http://localhost:8080/rental/1337
+Accept: application/json
+
+### Find Non-Exising Game
+
+GET http://localhost:8080/rental/0000
+Accept: application/json
+
+### Full Catalog
+
+GET http://localhost:8080/rental/catalog
+Accept: application/json
+
+### Watch Catalog
+
+GET http://localhost:8080/rental/catalog/watch
+Accept: text/event-stream
+
+### Rent Game 1234
+
+POST http://localhost:8080/rental/rent/1234?renter=Allard
+Content-Type: application/json
+
+### Rent Game 5678
+
+POST http://localhost:8080/rental/rent/5678?renter=Steven
+Content-Type: application/json
+
+### Rent Game 9012
+
+POST http://localhost:8080/rental/rent/9012?renter=Lucas
+Content-Type: application/json
+
+### Rent Game 5678, which is already rented out
+
+POST http://localhost:8080/rental/rent/5678?renter=StefanE
+Content-Type: application/json
+
+### Rent Game 1337, which has no been released just yet
+
+POST http://localhost:8080/rental/rent/1337?renter=StefanA
+Content-Type: application/json
+
+### Return Game 5678
+
+POST http://localhost:8080/rental/return/5678?returner=Steven
+Content-Type: application/json
+
+### Return Game 1234, which Steven is not allowed to return
+
+POST http://localhost:8080/rental/return/1234?returner=Steven
+Content-Type: application/json
+
+### Register Game 4242
+
+POST http://localhost:8080/rental/register/4242
+Content-Type: application/json
+
+{
+  "title": "The Last of Us: Part 2",
+  "releaseDate": "2020-06-19T00:00:01.000Z",
+  "description": "Game Story telling on an entirely different level",
+  "singleplayer": true,
+  "multiplayer": true
+}
+
+###
