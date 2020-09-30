@@ -33,14 +33,16 @@ class GameCatalogProjector {
 
     @EventHandler
     public void on(GameRegisteredEvent event) {
+        String title = event.getTitle();
+
         repository.save(new GameView(event.getGameIdentifier(),
-                                     event.getTitle(),
+                                     title,
                                      event.getReleaseDate(),
                                      event.getDescription(),
                                      event.isSingleplayer(),
                                      event.isMultiplayer()));
 
-        updateEmitter.emit(FullGameCatalogQuery.class, query -> true, event.getTitle());
+        updateEmitter.emit(FullGameCatalogQuery.class, query -> true, title);
     }
 
     @EventHandler
