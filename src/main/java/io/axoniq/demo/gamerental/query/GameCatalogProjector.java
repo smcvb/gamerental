@@ -91,7 +91,7 @@ class GameCatalogProjector {
     @ExceptionHandler(resultType = IllegalArgumentException.class)
     public void handle(IllegalArgumentException exception) {
         ExceptionStatusCode statusCode;
-        if (exception.getMessage().contains("could no be found")) {
+        if (exception.getMessage().contains("could not be found")) {
             statusCode = ExceptionStatusCode.GAME_NOT_FOUND;
         } else {
             statusCode = ExceptionStatusCode.UNKNOWN_EXCEPTION;
