@@ -63,13 +63,6 @@ class GameCatalogProjector {
     }
 
     @QueryHandler
-    public List<String> handle(FullGameCatalogQuery query) {
-        return repository.findAll().stream()
-                         .map(GameView::getTitle)
-                         .collect(Collectors.toList());
-    }
-
-    @QueryHandler
     public Game handle(FindGameQuery query) {
         String gameIdentifier = query.getGameIdentifier();
         return repository.findById(gameIdentifier)
@@ -83,5 +76,12 @@ class GameCatalogProjector {
                          .orElseThrow(() -> new IllegalArgumentException(
                                  "Game with id [" + gameIdentifier + "] could not be found."
                          ));
+    }
+
+    @QueryHandler
+    public List<String> handle(FullGameCatalogQuery query) {
+        return repository.findAll().stream()
+                         .map(GameView::getTitle)
+                         .collect(Collectors.toList());
     }
 }
