@@ -43,7 +43,6 @@ class GameRentalController {
         commandGateway.registerResultHandlerInterceptor(
                 (cmd, result) -> result.onErrorMap(GameRentalController::mapRemoteException)
         );
-        commandGateway.registerResultHandlerInterceptor((cmd, result) -> result.timeout(Duration.ofMillis(500)));
 
         this.queryGateway = queryGateway;
         queryGateway.registerResultHandlerInterceptor(
