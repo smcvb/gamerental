@@ -43,7 +43,6 @@ class GameRentalController {
         commandGateway.registerResultHandlerInterceptor(
                 (cmd, result) -> result.onErrorMap(GameRentalController::mapRemoteException)
         );
-        commandGateway.registerResultHandlerInterceptor((cmd, result) -> result.timeout(Duration.ofMillis(500)));
 
         this.queryGateway = queryGateway;
         queryGateway.registerResultHandlerInterceptor(
@@ -63,20 +62,15 @@ class GameRentalController {
                                                            gameDto.multiplayer));
     }
 
-    @PostMapping("/register")
-    public Mono<String> register(@RequestBody GameDto gameDto) {
-        return register(UUID.randomUUID().toString(), gameDto);
-    }
-
     @PostMapping("/rent/{identifier}")
     public Mono<Void> rentGame(@PathVariable("identifier") String identifier,
-                                 @RequestParam("renter") String renter) {
+                               @RequestParam("renter") String renter) {
         return commandGateway.send(new RentGameCommand(identifier, renter));
     }
 
     @PostMapping("/return/{identifier}")
     public Mono<Void> returnGame(@PathVariable("identifier") String identifier,
-                                   @RequestParam("returner") String returner) {
+                                 @RequestParam("returner") String returner) {
         return commandGateway.send(new ReturnGameCommand(identifier, returner));
     }
 
