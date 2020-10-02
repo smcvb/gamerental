@@ -51,7 +51,7 @@ class GameCatalogProjector {
         if (result.isPresent()) {
             result.get().decrementStock();
         } else {
-            throw new IllegalArgumentException("Game with id [" + event.getGameIdentifier() + "] could no be found");
+            throw new IllegalArgumentException("Game with id [" + event.getGameIdentifier() + "] could not be found.");
         }
     }
 
@@ -61,7 +61,7 @@ class GameCatalogProjector {
         if (result.isPresent()) {
             result.get().incrementStock();
         } else {
-            throw new IllegalArgumentException("Game with id [" + event.getGameIdentifier() + "] could no be found");
+            throw new IllegalArgumentException("Game with id [" + event.getGameIdentifier() + "] could not be found.");
         }
     }
 
@@ -84,14 +84,14 @@ class GameCatalogProjector {
                                  gameView.isMultiplayer()
                          ))
                          .orElseThrow(() -> new IllegalArgumentException(
-                                 "Game with id [" + gameIdentifier + "] could no be found"
+                                 "Game with id [" + gameIdentifier + "] could not be found."
                          ));
     }
 
     @ExceptionHandler(resultType = IllegalArgumentException.class)
     public void handle(IllegalArgumentException exception) {
         ExceptionStatusCode statusCode;
-        if (exception.getMessage().contains("could no be found")) {
+        if (exception.getMessage().contains("could not be found")) {
             statusCode = ExceptionStatusCode.GAME_NOT_FOUND;
         } else {
             statusCode = ExceptionStatusCode.UNKNOWN_EXCEPTION;
