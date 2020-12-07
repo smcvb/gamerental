@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Game Rental Application - UI" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="Game Rental Application - Distributed">
+    <module name="gamerental" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.axoniq.demo.gamerental.GameRentalApplication" />
+    <option name="ACTIVE_PROFILES" value="ui" />
+    <option name="ALTERNATIVE_JRE_PATH" />
+    <additionalParameters>
+      <param>
+        <option name="enabled" value="true" />
+        <option name="name" value="server.port" />
+        <option name="value" value="8080" />
+      </param>
+    </additionalParameters>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
