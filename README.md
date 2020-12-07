@@ -29,10 +29,15 @@ The following steps have been defined for this project:
 4. The `query` model, a `GameView`, is provided, created/updated and made queryable through the `GameCatalogProjector`.
 5. The [Reactor Extension](https://github.com/AxonFramework/extension-reactor) is included and used by the `GameRentalController`.
 6. Cleaner distributed exceptional handling is introduced, through an `ExceptionStatusCode` specific exception being thrown in `@ExceptionHandler` annotated functions in the `Game` aggregate and `GameCatalogProjector`.
+7. Spring's `@Profile{{profile-name})` annotation has been added to the `Game`, `GameCatalogProjector`, `GameViewRepository` and `GameRentalController`, allowing for application distribution.
 
 ## Running and testing the application
 
 As this is a Spring Boot application, simply running the `GameRentalApplication` is sufficient.
+However, Spring profiles are present, which allow for running portions of this application.
+More specifically there's a `command`, `query` and `ui` profile present, thus segregating the `Game` aggregate, `GameCatalogProjector` and `GameRentalController` into their own runnables.
+Furthermore, if Intellij is being use, these Run Configurations can be utilized which are present in the `./.run` folder.
+
 Granted that a connection is made with an Axon Server instance.
 Ideally [Axon Cloud](https://console.cloud.axoniq.io/) is used for this, as is shown in step 3.
 If you desire to run Axon Server locally, you can download it [here](http://download.axoniq.io/quickstart/AxonQuickstart.zip).
