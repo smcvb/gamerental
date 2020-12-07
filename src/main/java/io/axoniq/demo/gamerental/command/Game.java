@@ -13,6 +13,7 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
+import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ import java.util.Set;
 
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
+@Profile("command")
 @Aggregate
 class Game {
 
