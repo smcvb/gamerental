@@ -26,6 +26,7 @@ The following steps have been defined for this project:
 1. The `core-api`, containing the commands, events, queries and query responses.
 2. The `command` model has been created, showing a `Game` aggregate.
 3. The application connects to [Axon Cloud](https://console.cloud.axoniq.io/), through the added Axon Server properties to the `application.properties`.
+4. The `query` model, a `GameView`, is provided, created/updated and made queryable through the `GameCatalogProjector`.
 
 ## Running and testing the application
 
