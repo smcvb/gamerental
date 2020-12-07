@@ -29,6 +29,7 @@ The following steps have been defined for this project:
  4. The `query` model, a `GameView`, is provided, created/updated and made queryable through the `GameCatalogProjector`.
  5. The [Reactor Extension](https://github.com/AxonFramework/extension-reactor) is included and used by the `GameRentalController`.
  6. Cleaner distributed exceptional handling is introduced, through an `ExceptionStatusCode` specific exception being thrown in `@ExceptionHandler` annotated functions in the `Game` aggregate and `GameCatalogProjector`.
+ 7. Spring's `@Profile{{profile-name})` annotation has been added to the `Game`, `GameCatalogProjector`, `GameViewRepository` and `GameRentalController`, allowing for application distribution.
  
 ## Running and testing the application
 
