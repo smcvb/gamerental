@@ -24,7 +24,10 @@ Next to providing the convenience of showing the flow, it also serves the purpos
 The following steps have been defined for this project:
 
 1. The `core-api`, containing the commands, events, queries and query responses.
+2. The `command` model has been created, showing a `Game` aggregate.
 
 ## Running and testing the application
 
 As this is a Spring Boot application, simply running the `GameRentalApplication` is sufficient.
+Granted that a connection is made with an Axon Server instance.
+If you desire to run Axon Server locally, you can download it [here](http://download.axoniq.io/quickstart/AxonQuickstart.zip).
