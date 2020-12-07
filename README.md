@@ -22,3 +22,9 @@ Additionally, several branches representing the steps throughout the lifecycle o
 Next to providing the convenience of showing the flow, it also serves the purpose of being a back-up during the presentation.
 
 The following steps have been defined for this project:
+
+1. The `core-api`, containing the commands, events, queries and query responses.
+
+## Running and testing the application
+
+As this is a Spring Boot application, simply running the `GameRentalApplication` is sufficient.
