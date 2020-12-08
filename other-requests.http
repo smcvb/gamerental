@@ -38,9 +38,9 @@ Content-Type: application/json
 POST http://localhost:8080/rental/rent/5678?renter=StefanE
 Content-Type: application/json
 
-### Rent Game 1337, which has no been released just yet
+### Rent Game 9001, which has no been released just yet
 
-POST http://localhost:8080/rental/rent/1337?renter=StefanA
+POST http://localhost:8080/rental/rent/9001?renter=StefanA
 Content-Type: application/json
 
 ### Return Game 5678
