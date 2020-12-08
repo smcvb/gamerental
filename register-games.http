@@ -70,7 +70,7 @@ Content-Type: application/json
 
 {
   "title": "Cyberpunk 2077",
-  "releaseDate": "2020-11-19T00:00:01.000Z",
+  "releaseDate": "2020-12-10T00:00:01.000Z",
   "description": "Just one of the most anticipated games of 2020 is all, from the creators of the Witcher 3",
   "singleplayer": true,
   "multiplayer": true
