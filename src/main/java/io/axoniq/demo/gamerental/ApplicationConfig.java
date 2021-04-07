@@ -37,7 +37,9 @@ public class ApplicationConfig {
 
     @Bean
     public RoutingStrategy routingStrategy() {
-        return new AnnotationRoutingStrategy(UnresolvedRoutingKeyPolicy.RANDOM_KEY);
+        return AnnotationRoutingStrategy.builder()
+                                        .fallbackRoutingStrategy(UnresolvedRoutingKeyPolicy.RANDOM_KEY)
+                                        .build();
     }
 
     @Bean
