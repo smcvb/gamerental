@@ -55,7 +55,6 @@ public class ApplicationConfig {
     }
 
     @Autowired
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public void configureLoggingInterceptorFor(EventBus eventBus, LoggingInterceptor<Message<?>> loggingInterceptor) {
         eventBus.registerDispatchInterceptor(loggingInterceptor);
     }
@@ -67,7 +66,6 @@ public class ApplicationConfig {
     }
 
     @Autowired
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public void configureLoggingInterceptorFor(QueryBus queryBus, LoggingInterceptor<Message<?>> loggingInterceptor) {
         queryBus.registerDispatchInterceptor(loggingInterceptor);
         queryBus.registerHandlerInterceptor(loggingInterceptor);
