@@ -12,15 +12,10 @@ import org.junit.jupiter.api.*;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.UUID;
+
+import static io.axoniq.demo.gamerental.TestUtils.*;
 
 class GameTest {
-
-    private static final String GAME_IDENTIFIER = UUID.randomUUID().toString();
-    private static final String TITLE = "Super Mario Kart";
-    private static final Instant RELEASE_DATE = Instant.parse("2021-03-22T15:41:02.101900Z");
-    private static final String DESCRIPTION = "Kart racing game for the Super Nintendo";
-    private static final String RENTER = "Steven van Beelen";
 
     private FixtureConfiguration<Game> fixture;
 
