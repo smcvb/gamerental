@@ -73,7 +73,7 @@ class GameRentalController {
         return queryGateway.subscriptionQueryMany(new FullGameCatalogQuery(), String.class);
     }
 
-    private static class GameDto {
+    static class GameDto {
 
         private final String title;
         private final Instant releaseDate;
@@ -92,6 +92,26 @@ class GameRentalController {
             this.description = description;
             this.singleplayer = singleplayer;
             this.multiplayer = multiplayer;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public Instant getReleaseDate() {
+            return releaseDate;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public boolean isSingleplayer() {
+            return singleplayer;
+        }
+
+        public boolean isMultiplayer() {
+            return multiplayer;
         }
     }
 }
