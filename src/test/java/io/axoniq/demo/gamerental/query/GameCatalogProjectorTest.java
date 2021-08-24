@@ -1,11 +1,13 @@
 package io.axoniq.demo.gamerental.query;
 
+import io.axoniq.demo.gamerental.coreapi.ExceptionStatusCode;
 import io.axoniq.demo.gamerental.coreapi.FindGameQuery;
 import io.axoniq.demo.gamerental.coreapi.FullGameCatalogQuery;
 import io.axoniq.demo.gamerental.coreapi.Game;
 import io.axoniq.demo.gamerental.coreapi.GameRegisteredEvent;
 import io.axoniq.demo.gamerental.coreapi.GameRentedEvent;
 import io.axoniq.demo.gamerental.coreapi.GameReturnedEvent;
+import io.axoniq.demo.gamerental.coreapi.RentalQueryException;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
@@ -166,5 +168,25 @@ class GameCatalogProjectorTest {
 
         verify(repository).findAll();
         verifyNoInteractions(updateEmitter);
+    }
+
+    @Test
+    void testHandleIllegalArgumentExceptionMapsToGameNotFoundRentalQueryException() {
+        RentalQueryException result = assertThrows(
+                RentalQueryException.class, () -> testSubject.handle(new IllegalArgumentException("could not be found"))
+        );
+
+        assertTrue(result.getDetails().isPresent());
+        assertEquals(ExceptionStatusCode.GAME_NOT_FOUND, result.getDetails().get());
+    }
+
+    @Test
+    void testHandleIllegalArgumentExceptionMapsToUnknownExceptionRentalQueryException() {
+        RentalQueryException result = assertThrows(
+                RentalQueryException.class, () -> testSubject.handle(new IllegalArgumentException("some unknown exp"))
+        );
+
+        assertTrue(result.getDetails().isPresent());
+        assertEquals(ExceptionStatusCode.UNKNOWN_EXCEPTION, result.getDetails().get());
     }
 }
