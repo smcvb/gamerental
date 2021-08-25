@@ -46,3 +46,12 @@ If you desire to run Axon Server locally, you can download it [here](http://down
 For validating the application's internals, the projects include tests and two `.http` files (in the root folder of this project). The tests show all the basics, whereas the `.http` files (supported in [IntelliJ Ultimate](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) only) allow invocation of the endpoints.
 The `register-games.http` allows for the registration of several games to build a base catalog.
 The `other-requests.http` file contains all other operations for testing.
+
+## Starting your own Axon project
+
+The [steps](#project-traversal) this project traverses show a common approach towards constructing an Axon application. If you want to begin from scratch, consider these key aspects:
+
+* Use the [AxonIQ Initializr](https://start.axoniq.io/) to kick-start your project.
+* Use [Axon Cloud Console](https://console.cloud.axoniq.io/) to connect your application to a context. 
+  Using Axon Cloud allows you to persist your events and distributed commands, events, and queries.
+* Whenever anything is unclear, check out the [Reference Guide](https://docs.axoniq.io/reference-guide/) or drop a question on the [forum](https://discuss.axoniq.io/).
