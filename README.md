@@ -43,6 +43,6 @@ The application does expect it can make a connection with an Axon Server instanc
 Ideally, [Axon Cloud](https://console.cloud.axoniq.io/) is used for this, as is shown in step 3.
 If you desire to run Axon Server locally, you can download it [here](http://download.axoniq.io/quickstart/AxonQuickstart.zip).
 
-For validating the application's internals, the projects include tests and two `.http` files (in the root folder of this project). The tests show all the basics, whereas the `.http` files (supported in [IntelliJ Ultime](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) only) allow invocation of the endpoints.
+For validating the application's internals, the projects include tests and two `.http` files (in the root folder of this project). The tests show all the basics, whereas the `.http` files (supported in [IntelliJ Ultimate](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) only) allow invocation of the endpoints.
 The `register-games.http` allows for the registration of several games to build a base catalog.
 The `other-requests.http` file contains all other operations for testing.
