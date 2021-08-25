@@ -1,4 +1,4 @@
-package io.axoniq.demo.gamerental.ui;
+package io.axoniq.demo.gamerental.controller;
 
 import io.axoniq.demo.gamerental.coreapi.FindGameQuery;
 import io.axoniq.demo.gamerental.coreapi.FullGameCatalogQuery;
@@ -22,7 +22,7 @@ import java.util.List;
 import static io.axoniq.demo.gamerental.TestUtils.*;
 import static org.mockito.Mockito.*;
 
-class GameRentalControllerTest {
+class GameRentalRestControllerTest {
 
     private ReactorCommandGateway commandGateway;
     private ReactorQueryGateway queryGateway;
@@ -34,13 +34,13 @@ class GameRentalControllerTest {
         commandGateway = mock(ReactorCommandGateway.class);
         queryGateway = mock(ReactorQueryGateway.class);
 
-        testClient = WebTestClient.bindToController(new GameRentalController(commandGateway, queryGateway)).build();
+        testClient = WebTestClient.bindToController(new GameRentalRestController(commandGateway, queryGateway)).build();
     }
 
     @Test
     void testRegisterGame() {
-        GameRentalController.GameDto testDto =
-                new GameRentalController.GameDto(TITLE, RELEASE_DATE, DESCRIPTION, true, true);
+        GameRentalRestController.GameDto testDto =
+                new GameRentalRestController.GameDto(TITLE, RELEASE_DATE, DESCRIPTION, true, true);
 
         RegisterGameCommand expectedCommand = new RegisterGameCommand(
                 GAME_IDENTIFIER, testDto.getTitle(), testDto.getReleaseDate(), testDto.getDescription(),

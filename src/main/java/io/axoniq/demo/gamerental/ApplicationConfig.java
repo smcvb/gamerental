@@ -9,6 +9,8 @@ import org.axonframework.commandhandling.distributed.RoutingStrategy;
 import org.axonframework.commandhandling.distributed.UnresolvedRoutingKeyPolicy;
 import org.axonframework.config.EventProcessingConfigurer;
 import org.axonframework.eventhandling.EventBus;
+import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
+import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway;
 import org.axonframework.messaging.Message;
 import org.axonframework.messaging.interceptors.LoggingInterceptor;
 import org.axonframework.queryhandling.QueryBus;
@@ -18,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.time.Duration;
 
 @Configuration
 public class ApplicationConfig {
@@ -69,5 +73,18 @@ public class ApplicationConfig {
     public void configureLoggingInterceptorFor(QueryBus queryBus, LoggingInterceptor<Message<?>> loggingInterceptor) {
         queryBus.registerDispatchInterceptor(loggingInterceptor);
         queryBus.registerHandlerInterceptor(loggingInterceptor);
+    }
+
+    @Autowired
+    public void configureResultHandlerInterceptors(ReactorCommandGateway commandGateway,
+                                                   ReactorQueryGateway queryGateway) {
+        commandGateway.registerResultHandlerInterceptor(
+                (cmd, result) -> result.onErrorMap(ExceptionMapper::mapRemoteException)
+        );
+
+        queryGateway.registerResultHandlerInterceptor(
+                (query, result) -> result.onErrorMap(ExceptionMapper::mapRemoteException)
+        );
+        queryGateway.registerResultHandlerInterceptor((query, result) -> result.timeout(Duration.ofMillis(500)));
     }
 }

@@ -30,6 +30,7 @@ This project currently contains the following steps:
 5. This step includes the [Reactor Extension](https://github.com/AxonFramework/extension-reactor) and is used by the `GameRentalController`.
 6. This step introduces cleaner distributed exceptional handling. It does so by throwing specifics exceptions in `@ExceptionHandler` annotated functions in the `Game` aggregate and `GameCatalogProjector`, containing an `ExceptionStatusCode`.
 7. Spring's `@Profile{{profile-name})` annotation has been added to the `Game`, `GameCatalogProjector`, `GameViewRepository` and `GameRentalController`, allowing for application distribution.
+8. Preparation to introduce another endpoint based on RSocket, by renaming the controller to contain "rest" in the name and by extracting the exception mapping registration. 
 
 ## Running and testing the application
 

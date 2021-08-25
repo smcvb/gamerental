@@ -1,19 +1,14 @@
-package io.axoniq.demo.gamerental.ui;
+package io.axoniq.demo.gamerental.controller;
 
-import io.axoniq.demo.gamerental.coreapi.ExceptionStatusCode;
 import io.axoniq.demo.gamerental.coreapi.FindGameQuery;
 import io.axoniq.demo.gamerental.coreapi.FullGameCatalogQuery;
 import io.axoniq.demo.gamerental.coreapi.Game;
 import io.axoniq.demo.gamerental.coreapi.RegisterGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentGameCommand;
-import io.axoniq.demo.gamerental.coreapi.RentalCommandException;
-import io.axoniq.demo.gamerental.coreapi.RentalQueryException;
 import io.axoniq.demo.gamerental.coreapi.ReturnGameCommand;
-import org.axonframework.commandhandling.CommandExecutionException;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
-import org.axonframework.queryhandling.QueryExecutionException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,30 +21,20 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.beans.ConstructorProperties;
-import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @Profile("ui")
 @RestController
 @RequestMapping("/rental")
-class GameRentalController {
+class GameRentalRestController {
 
     private final ReactorCommandGateway commandGateway;
     private final ReactorQueryGateway queryGateway;
 
-    public GameRentalController(ReactorCommandGateway commandGateway, ReactorQueryGateway queryGateway) {
+    public GameRentalRestController(ReactorCommandGateway commandGateway, ReactorQueryGateway queryGateway) {
         this.commandGateway = commandGateway;
-        commandGateway.registerResultHandlerInterceptor(
-                (cmd, result) -> result.onErrorMap(GameRentalController::mapRemoteException)
-        );
-
         this.queryGateway = queryGateway;
-        queryGateway.registerResultHandlerInterceptor(
-                (query, result) -> result.onErrorMap(GameRentalController::mapRemoteException)
-        );
-        queryGateway.registerResultHandlerInterceptor((query, result) -> result.timeout(Duration.ofMillis(500)));
     }
 
     @PostMapping("/register/{identifier}")
@@ -88,23 +73,6 @@ class GameRentalController {
     @GetMapping(value = "/catalog/watch", produces = "text/event-stream")
     public Flux<String> watchGameCatalog() {
         return queryGateway.subscriptionQueryMany(new FullGameCatalogQuery(), String.class);
-    }
-
-    private static Throwable mapRemoteException(Throwable exception) {
-        if (exception instanceof CommandExecutionException) {
-            Optional<Object> details = ((CommandExecutionException) exception).getDetails();
-            if (details.isPresent()) {
-                ExceptionStatusCode statusCode = (ExceptionStatusCode) details.get();
-                return new RentalCommandException(statusCode.getDescription(), null, statusCode);
-            }
-        } else if ((exception instanceof QueryExecutionException)) {
-            Optional<Object> details = ((QueryExecutionException) exception).getDetails();
-            if (details.isPresent()) {
-                ExceptionStatusCode statusCode = (ExceptionStatusCode) details.get();
-                return new RentalQueryException(statusCode.getDescription(), null, statusCode);
-            }
-        }
-        return exception;
     }
 
     static class GameDto {
