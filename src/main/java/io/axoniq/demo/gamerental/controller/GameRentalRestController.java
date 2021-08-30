@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.beans.ConstructorProperties;
-import java.time.Instant;
+import java.time.Duration;
 import java.util.List;
 
 @Profile("ui")
@@ -41,11 +40,11 @@ class GameRentalRestController {
     public Mono<String> register(@PathVariable("identifier") String gameIdentifier,
                                  @RequestBody GameDto gameDto) {
         return commandGateway.send(new RegisterGameCommand(gameIdentifier,
-                                                           gameDto.title,
-                                                           gameDto.releaseDate,
-                                                           gameDto.description,
-                                                           gameDto.singleplayer,
-                                                           gameDto.multiplayer));
+                                                           gameDto.getTitle(),
+                                                           gameDto.getReleaseDate(),
+                                                           gameDto.getDescription(),
+                                                           gameDto.isSingleplayer(),
+                                                           gameDto.isMultiplayer()));
     }
 
     @PostMapping("/rent/{identifier}")
@@ -73,47 +72,5 @@ class GameRentalRestController {
     @GetMapping(value = "/catalog/watch", produces = "text/event-stream")
     public Flux<String> watchGameCatalog() {
         return queryGateway.subscriptionQueryMany(new FullGameCatalogQuery(), String.class);
-    }
-
-    static class GameDto {
-
-        private final String title;
-        private final Instant releaseDate;
-        private final String description;
-        private final boolean singleplayer;
-        private final boolean multiplayer;
-
-        @ConstructorProperties({"title", "releaseDate", "description", "singleplayer", "multiplayer"})
-        public GameDto(String title,
-                       Instant releaseDate,
-                       String description,
-                       boolean singleplayer,
-                       boolean multiplayer) {
-            this.title = title;
-            this.releaseDate = releaseDate;
-            this.description = description;
-            this.singleplayer = singleplayer;
-            this.multiplayer = multiplayer;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public Instant getReleaseDate() {
-            return releaseDate;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public boolean isSingleplayer() {
-            return singleplayer;
-        }
-
-        public boolean isMultiplayer() {
-            return multiplayer;
-        }
     }
 }
