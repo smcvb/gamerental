@@ -28,7 +28,7 @@ The following steps have been defined for this project:
 3. The application connects to [Axon Cloud](https://console.cloud.axoniq.io/), through the added Axon Server properties to the `application.properties`.
 4. The `query` model, a `GameView`, is provided, created/updated and made queryable through the `GameCatalogProjector`.
 5. This step includes the [Reactor Extension](https://github.com/AxonFramework/extension-reactor), which is used by the `GameRentalController`.
-6. Cleaner distributed exceptional handling is introduced, through an `ExceptionStatusCode` specific exception being thrown in `@ExceptionHandler` annotated functions in the `Game` aggregate and `GameCatalogProjector`.
+6. This step introduces cleaner distributed exceptional handling. It does so by throwing specifics exceptions in `@ExceptionHandler` annotated functions in the `Game` aggregate and `GameCatalogProjector`, containing an `ExceptionStatusCode`.
 
 ## Running and testing the application
 
