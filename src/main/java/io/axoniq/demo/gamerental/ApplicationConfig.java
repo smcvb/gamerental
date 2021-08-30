@@ -25,7 +25,6 @@ import org.springframework.context.annotation.Configuration;
 import reactor.core.publisher.Hooks;
 
 import java.lang.invoke.MethodHandles;
-import java.time.Duration;
 import java.util.function.Consumer;
 
 @Configuration
@@ -92,7 +91,6 @@ public class ApplicationConfig {
         queryGateway.registerResultHandlerInterceptor(
                 (query, result) -> result.onErrorMap(ExceptionMapper::mapRemoteException)
         );
-        queryGateway.registerResultHandlerInterceptor((query, result) -> result.timeout(Duration.ofMillis(500)));
     }
 
     /**

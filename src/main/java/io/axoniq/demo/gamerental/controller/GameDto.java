@@ -1,4 +1,4 @@
-package io.axoniq.demo.gamerental.ui;
+package io.axoniq.demo.gamerental.controller;
 
 import java.beans.ConstructorProperties;
 import java.time.Instant;
