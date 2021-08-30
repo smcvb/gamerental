@@ -6,6 +6,7 @@ import java.util.Objects;
 
 class GameDto {
 
+    private String gameIdentifier;
     private final String title;
     private final Instant releaseDate;
     private final String description;
@@ -23,6 +24,14 @@ class GameDto {
         this.description = description;
         this.singleplayer = singleplayer;
         this.multiplayer = multiplayer;
+    }
+
+    public String getGameIdentifier() {
+        return gameIdentifier;
+    }
+
+    public void setGameIdentifier(String gameIdentifier) {
+        this.gameIdentifier = gameIdentifier;
     }
 
     public String getTitle() {
