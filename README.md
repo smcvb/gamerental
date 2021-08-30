@@ -43,9 +43,22 @@ The application does expect it can make a connection with an Axon Server instanc
 Ideally, [Axon Cloud](https://console.cloud.axoniq.io/) is used for this, as is shown in step 3.
 If you desire to run Axon Server locally, you can download it [here](http://download.axoniq.io/quickstart/AxonQuickstart.zip).
 
-For validating the application's internals, the projects include tests and two `.http` files (in the root folder of this project). The tests show all the basics, whereas the `.http` files (supported in [IntelliJ Ultimate](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) only) allow invocation of the endpoints.
+For validating the application's internals, you can run the tests, use the REST endpoint, or connect with the [RSocket](https://rsocket.io/) endpoint.
+
+When testing through the REST endpoint, [IntelliJ Ultimate](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) you can use the included `.http` files (in the root folder of this project).
 The `register-games.http` allows for the registration of several games to build a base catalog.
 The `other-requests.http` file contains all other operations for testing.
+
+When testing through RSocket, the most straightforward approach is to install the [RSocket Client CLI](https://github.com/making/rsc), or `rsc` for short.
+The README of `rsc` provides concrete explanations on how to install it in your environment.
+
+With `rsc` in place, you can use the following commands to test the application:
+
+* Register a game - `rsc --debug --request --route register --data="{\"gameIdentifier\":\"8668\",\"title\":\"Hades\",\"releaseDate\":\"2020-09-17T00:00:01.000009Z\",\"description\":\"Roguelike dungeon crawler set in ancient Greek mythology\",\"singleplayer\":true,\"multiplayer\":false}" tcp://localhost:7000`
+* Rent a game - `rsc --debug --fnf --route rent --data="{\"gameIdentifier\":\"8668\",\"renter\":\"Ben Wilcock\"}" tcp://localhost:7000`
+* Return a game - `rsc --debug --fnf --route return --data="{\"gameIdentifier\":\"8668\",\"renter\":\"Ben Wilcock\"}" tcp://localhost:7000`
+* Find a game - `rsc --debug --request --route find --data="8668" tcp://localhost:7000`
+* Watch the game catalog - `rsc --debug --stream --route catalog tcp://localhost:7000`
 
 ## Starting your own Axon project
 
