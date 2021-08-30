@@ -16,15 +16,22 @@ import org.axonframework.messaging.interceptors.LoggingInterceptor;
 import org.axonframework.queryhandling.QueryBus;
 import org.axonframework.serialization.Serializer;
 import org.axonframework.serialization.json.JacksonSerializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import reactor.core.publisher.Hooks;
 
+import java.lang.invoke.MethodHandles;
 import java.time.Duration;
+import java.util.function.Consumer;
 
 @Configuration
 public class ApplicationConfig {
+
+    private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Bean
     @Qualifier("messageSerializer")
@@ -86,5 +93,20 @@ public class ApplicationConfig {
                 (query, result) -> result.onErrorMap(ExceptionMapper::mapRemoteException)
         );
         queryGateway.registerResultHandlerInterceptor((query, result) -> result.timeout(Duration.ofMillis(500)));
+    }
+
+    /**
+     * This {@link Hooks#onErrorDropped(Consumer)} is included as a recommendation from RSocket Java's GitHub issue
+     * [#1018](https://github.com/rsocket/rsocket-java/issues/1018). Ideally the problem would be taken care off by
+     * RSocket, but at this stage the below solution is recommended by a contributor. To be certain not all exception
+     * are blocked, only the {@code "Exceptions$ErrorCallbackNotImplemented"} is covered.
+     */
+    @Autowired
+    public void configureHooks() {
+        Hooks.onErrorDropped(t -> {
+            if (!t.getClass().toString().equals("class reactor.core.Exceptions$ErrorCallbackNotImplemented")) {
+                logger.warn("Invoked onErrorDropped for exception [{}]", t.getClass(), t);
+            }
+        });
     }
 }
