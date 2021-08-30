@@ -25,11 +25,10 @@ This project currently contains the following steps:
 
 1. The `core-api`, containing the commands, events, queries, and query responses.
 2. The `command` model has been created, showing a `Game` aggregate.
-3. The application connects to [Axon Cloud](https://console.cloud.axoniq.io/) through the added Axon Server properties to the `application.properties`.
-4. The `query` model, a `GameView`, is provided, created/updated, and made queryable through the `GameCatalogProjector`.
-5. This step includes the [Reactor Extension](https://github.com/AxonFramework/extension-reactor) and is used by the `GameRentalController`.
-6. This step introduces cleaner distributed exceptional handling. It does so by throwing specifics exceptions in `@ExceptionHandler` annotated functions in the `Game` aggregate and `GameCatalogProjector`, containing an `ExceptionStatusCode`.
-7. Spring's `@Profile{{profile-name})` annotation has been added to the `Game`, `GameCatalogProjector`, `GameViewRepository` and `GameRentalController`, allowing for application distribution.
+3. The application connects to [Axon Cloud](https://console.cloud.axoniq.io/), through the added Axon Server properties to the `application.properties`.
+4. The `query` model, a `GameView`, is provided, created/updated and made queryable through the `GameCatalogProjector`.
+5. This step includes the [Reactor Extension](https://github.com/AxonFramework/extension-reactor), which is used by the `GameRentalController`.
+6. Cleaner distributed exceptional handling is introduced, through an `ExceptionStatusCode` specific exception being thrown in `@ExceptionHandler` annotated functions in the `Game` aggregate and `GameCatalogProjector`.
 
 ## Running and testing the application
 
