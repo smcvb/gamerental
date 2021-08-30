@@ -39,8 +39,8 @@ class GameRentalControllerTest {
 
     @Test
     void testRegisterGame() {
-        GameRentalController.GameDto testDto =
-                new GameRentalController.GameDto(TITLE, RELEASE_DATE, DESCRIPTION, true, true);
+        GameDto testDto =
+                new GameDto(TITLE, RELEASE_DATE, DESCRIPTION, true, true);
 
         RegisterGameCommand expectedCommand = new RegisterGameCommand(
                 GAME_IDENTIFIER, testDto.getTitle(), testDto.getReleaseDate(), testDto.getDescription(),
