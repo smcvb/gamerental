@@ -1,13 +1,11 @@
 package io.axoniq.demo.gamerental.coreapi;
 
-import java.beans.ConstructorProperties;
 import java.util.Objects;
 
 public class FindGameQuery {
 
     private final String gameIdentifier;
 
-    @ConstructorProperties({"gameIdentifier"})
     public FindGameQuery(String gameIdentifier) {
         this.gameIdentifier = gameIdentifier;
     }

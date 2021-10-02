@@ -11,6 +11,10 @@ import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGa
 import org.axonframework.messaging.responsetypes.MultipleInstancesResponseType;
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
+import org.springframework.http.codec.CodecConfigurer;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
+import org.springframework.http.codec.json.Jackson2JsonEncoder;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -34,7 +38,18 @@ class GameRentalRestControllerTest {
         commandGateway = mock(ReactorCommandGateway.class);
         queryGateway = mock(ReactorQueryGateway.class);
 
-        testClient = WebTestClient.bindToController(new GameRentalRestController(commandGateway, queryGateway)).build();
+        testClient = WebTestClient.bindToController(new GameRentalRestController(commandGateway, queryGateway))
+                .httpMessageCodecs(this::jsonCodecs)
+                .configureClient().codecs(this::jsonCodecs)
+                .build();
+    }
+
+    //todo check up on https://github.com/spring-projects/spring-framework/pull/27511
+    private void jsonCodecs(CodecConfigurer configurer) {
+        var codecs = configurer.defaultCodecs();
+        var mapperWithModules = Jackson2ObjectMapperBuilder.json().findModulesViaServiceLoader(true).build();
+        codecs.jackson2JsonDecoder(new Jackson2JsonDecoder(mapperWithModules));
+        codecs.jackson2JsonEncoder(new Jackson2JsonEncoder(mapperWithModules));
     }
 
     @Test

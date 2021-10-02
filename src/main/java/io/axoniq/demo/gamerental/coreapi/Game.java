@@ -1,6 +1,5 @@
 package io.axoniq.demo.gamerental.coreapi;
 
-import java.beans.ConstructorProperties;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -12,7 +11,6 @@ public class Game {
     private final boolean singleplayer;
     private final boolean multiplayer;
 
-    @ConstructorProperties({"title", "releaseDate", "description", "singleplayer", "multiplayer"})
     public Game(String title, Instant releaseDate, String description, boolean singleplayer, boolean multiplayer) {
         this.title = title;
         this.releaseDate = releaseDate;

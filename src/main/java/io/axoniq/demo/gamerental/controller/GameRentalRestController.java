@@ -36,9 +36,8 @@ class GameRentalRestController {
     }
 
     @PostMapping("/register/{identifier}")
-    public Mono<String> register(@PathVariable("identifier") String gameIdentifier,
-                                 @RequestBody GameDto gameDto) {
-        return commandGateway.send(new RegisterGameCommand(gameIdentifier,
+    public Mono<String> register(@PathVariable String identifier, @RequestBody GameDto gameDto) {
+        return commandGateway.send(new RegisterGameCommand(identifier,
                                                            gameDto.getTitle(),
                                                            gameDto.getReleaseDate(),
                                                            gameDto.getDescription(),
@@ -47,19 +46,17 @@ class GameRentalRestController {
     }
 
     @PostMapping("/rent/{identifier}")
-    public Mono<Void> rentGame(@PathVariable("identifier") String identifier,
-                               @RequestParam("renter") String renter) {
+    public Mono<Void> rentGame(@PathVariable String identifier, @RequestParam String renter) {
         return commandGateway.send(new RentGameCommand(identifier, renter));
     }
 
     @PostMapping("/return/{identifier}")
-    public Mono<Void> returnGame(@PathVariable("identifier") String identifier,
-                                 @RequestParam("returner") String returner) {
+    public Mono<Void> returnGame(@PathVariable String identifier, @RequestParam String returner) {
         return commandGateway.send(new ReturnGameCommand(identifier, returner));
     }
 
     @GetMapping("/{identifier}")
-    public Mono<Game> findGame(@PathVariable("identifier") String identifier) {
+    public Mono<Game> findGame(@PathVariable String identifier) {
         return queryGateway.query(new FindGameQuery(identifier), Game.class);
     }
 

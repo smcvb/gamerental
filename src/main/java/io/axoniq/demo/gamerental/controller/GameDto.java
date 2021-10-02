@@ -1,6 +1,5 @@
 package io.axoniq.demo.gamerental.controller;
 
-import java.beans.ConstructorProperties;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -13,7 +12,6 @@ class GameDto {
     private final boolean singleplayer;
     private final boolean multiplayer;
 
-    @ConstructorProperties({"title", "releaseDate", "description", "singleplayer", "multiplayer"})
     public GameDto(String title,
                    Instant releaseDate,
                    String description,

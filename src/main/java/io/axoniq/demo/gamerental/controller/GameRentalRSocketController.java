@@ -14,8 +14,6 @@ import org.springframework.stereotype.Controller;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.beans.ConstructorProperties;
-
 @Profile("rsocket")
 @Controller
 public class GameRentalRSocketController {
@@ -68,7 +66,6 @@ public class GameRentalRSocketController {
         private final String gameIdentifier;
         private final String renter;
 
-        @ConstructorProperties({"gameIdentifier", "renter"})
         public RentDto(String gameIdentifier, String renter) {
             this.gameIdentifier = gameIdentifier;
             this.renter = renter;

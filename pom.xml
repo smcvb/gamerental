@@ -73,11 +73,17 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-parameter-names</artifactId>
+        </dependency>
+
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-test</artifactId>
             <version>${axon.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>

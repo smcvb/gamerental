@@ -2,7 +2,6 @@ package io.axoniq.demo.gamerental.coreapi;
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-import java.beans.ConstructorProperties;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -16,7 +15,6 @@ public class RegisterGameCommand {
     private final boolean singleplayer;
     private final boolean multiplayer;
 
-    @ConstructorProperties({"gameIdentifier", "title", "releaseDate", "description", "singleplayer", "multiplayer"})
     public RegisterGameCommand(String gameIdentifier,
                                String title,
                                Instant releaseDate,

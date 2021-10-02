@@ -1,6 +1,5 @@
 package io.axoniq.demo.gamerental.coreapi;
 
-import java.beans.ConstructorProperties;
 import java.util.Objects;
 
 public class GameReturnedEvent {
@@ -8,7 +7,6 @@ public class GameReturnedEvent {
     private final String gameIdentifier;
     private final String returner;
 
-    @ConstructorProperties({"gameIdentifier", "returner"})
     public GameReturnedEvent(String gameIdentifier, String returner) {
         this.gameIdentifier = gameIdentifier;
         this.returner = returner;

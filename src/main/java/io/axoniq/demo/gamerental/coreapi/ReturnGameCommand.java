@@ -2,7 +2,6 @@ package io.axoniq.demo.gamerental.coreapi;
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-import java.beans.ConstructorProperties;
 import java.util.Objects;
 
 public class ReturnGameCommand {
@@ -11,7 +10,6 @@ public class ReturnGameCommand {
     private final String gameIdentifier;
     private final String returner;
 
-    @ConstructorProperties({"gameIdentifier", "returner"})
     public ReturnGameCommand(String gameIdentifier, String returner) {
         this.gameIdentifier = gameIdentifier;
         this.returner = returner;
