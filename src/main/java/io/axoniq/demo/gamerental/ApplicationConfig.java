@@ -4,13 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.commandhandling.distributed.AnnotationRoutingStrategy;
-import org.axonframework.commandhandling.distributed.RoutingStrategy;
-import org.axonframework.commandhandling.distributed.UnresolvedRoutingKeyPolicy;
-import org.axonframework.config.EventProcessingConfigurer;
+import org.axonframework.config.ConfigurerModule;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway;
+import org.axonframework.lifecycle.Phase;
 import org.axonframework.messaging.Message;
 import org.axonframework.messaging.interceptors.LoggingInterceptor;
 import org.axonframework.queryhandling.QueryBus;
@@ -46,39 +44,32 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public RoutingStrategy routingStrategy() {
-        return AnnotationRoutingStrategy.builder()
-                                        .fallbackRoutingStrategy(UnresolvedRoutingKeyPolicy.RANDOM_KEY)
-                                        .build();
-    }
-
-    @Bean
     public LoggingInterceptor<Message<?>> loggingInterceptor() {
         return new LoggingInterceptor<>();
     }
 
-    @Autowired
-    public void configureLoggingInterceptorFor(CommandBus commandBus,
-                                               LoggingInterceptor<Message<?>> loggingInterceptor) {
-        commandBus.registerDispatchInterceptor(loggingInterceptor);
-        commandBus.registerHandlerInterceptor(loggingInterceptor);
-    }
-
-    @Autowired
-    public void configureLoggingInterceptorFor(EventBus eventBus, LoggingInterceptor<Message<?>> loggingInterceptor) {
-        eventBus.registerDispatchInterceptor(loggingInterceptor);
-    }
-
-    @Autowired
-    public void configureLoggingInterceptorFor(EventProcessingConfigurer eventProcessingConfigurer,
-                                               LoggingInterceptor<Message<?>> loggingInterceptor) {
-        eventProcessingConfigurer.registerDefaultHandlerInterceptor((config, processorName) -> loggingInterceptor);
-    }
-
-    @Autowired
-    public void configureLoggingInterceptorFor(QueryBus queryBus, LoggingInterceptor<Message<?>> loggingInterceptor) {
-        queryBus.registerDispatchInterceptor(loggingInterceptor);
-        queryBus.registerHandlerInterceptor(loggingInterceptor);
+    /**
+     * Using a {@link ConfigurerModule} provides a means to register components as part of the start and shutdown cycles
+     * of Axon Framework. The {@link LoggingInterceptor} is registered in the latest phase on start-up for the buses.
+     * Framework issue #2061 (https://github.com/AxonFramework/AxonFramework/pull/2061) would've simplified this
+     * further, but 4.6.0 isn't finished yet.
+     */
+    @Bean
+    public ConfigurerModule loggingInterceptorConfigurerModule(LoggingInterceptor<Message<?>> loggingInterceptor) {
+        return configurer -> {
+            configurer.onInitialize(config -> config.onStart(Phase.INSTRUCTION_COMPONENTS, () -> {
+                CommandBus commandBus = config.commandBus();
+                commandBus.registerDispatchInterceptor(loggingInterceptor);
+                commandBus.registerHandlerInterceptor(loggingInterceptor);
+                EventBus eventBus = config.eventBus();
+                eventBus.registerDispatchInterceptor(loggingInterceptor);
+                QueryBus queryBus = config.queryBus();
+                queryBus.registerDispatchInterceptor(loggingInterceptor);
+                queryBus.registerHandlerInterceptor(loggingInterceptor);
+            }));
+            configurer.eventProcessing()
+                      .registerDefaultHandlerInterceptor((c, processorName) -> loggingInterceptor);
+        };
     }
 
     @Autowired
