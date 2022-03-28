@@ -6,8 +6,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.config.ConfigurerModule;
 import org.axonframework.eventhandling.EventBus;
-import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
-import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway;
 import org.axonframework.lifecycle.Phase;
 import org.axonframework.messaging.Message;
 import org.axonframework.messaging.interceptors.LoggingInterceptor;
@@ -72,17 +70,6 @@ public class ApplicationConfig {
         };
     }
 
-    @Autowired
-    public void configureResultHandlerInterceptors(ReactorCommandGateway commandGateway,
-                                                   ReactorQueryGateway queryGateway) {
-        commandGateway.registerResultHandlerInterceptor(
-                (cmd, result) -> result.onErrorMap(ExceptionMapper::mapRemoteException)
-        );
-
-        queryGateway.registerResultHandlerInterceptor(
-                (query, result) -> result.onErrorMap(ExceptionMapper::mapRemoteException)
-        );
-    }
 
     /**
      * This {@link Hooks#onErrorDropped(Consumer)} is included as a recommendation from RSocket Java's GitHub issue
