@@ -49,7 +49,6 @@
         <dependency>
             <groupId>org.axonframework.extensions.reactor</groupId>
             <artifactId>axon-reactor-spring-boot-starter</artifactId>
-            <version>4.4.2</version>
         </dependency>
 
         <!-- Database -->
