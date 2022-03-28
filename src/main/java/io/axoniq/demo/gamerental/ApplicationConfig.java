@@ -3,9 +3,6 @@ package io.axoniq.demo.gamerental;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.axonframework.commandhandling.distributed.AnnotationRoutingStrategy;
-import org.axonframework.commandhandling.distributed.RoutingStrategy;
-import org.axonframework.commandhandling.distributed.UnresolvedRoutingKeyPolicy;
 import org.axonframework.serialization.Serializer;
 import org.axonframework.serialization.json.JacksonSerializer;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,10 +23,5 @@ public class ApplicationConfig {
                                 .objectMapper(objectMapper)
                                 .lenientDeserialization()
                                 .build();
-    }
-
-    @Bean
-    public RoutingStrategy routingStrategy() {
-        return new AnnotationRoutingStrategy(UnresolvedRoutingKeyPolicy.RANDOM_KEY);
     }
 }
