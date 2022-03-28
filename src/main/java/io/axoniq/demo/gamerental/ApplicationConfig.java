@@ -4,9 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.axonframework.commandhandling.CommandBus;
-import org.axonframework.commandhandling.distributed.AnnotationRoutingStrategy;
-import org.axonframework.commandhandling.distributed.RoutingStrategy;
-import org.axonframework.commandhandling.distributed.UnresolvedRoutingKeyPolicy;
 import org.axonframework.config.EventProcessingConfigurer;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.messaging.Message;
@@ -33,13 +30,6 @@ public class ApplicationConfig {
                                 .objectMapper(objectMapper)
                                 .lenientDeserialization()
                                 .build();
-    }
-
-    @Bean
-    public RoutingStrategy routingStrategy() {
-        return AnnotationRoutingStrategy.builder()
-                                        .fallbackRoutingStrategy(UnresolvedRoutingKeyPolicy.RANDOM_KEY)
-                                        .build();
     }
 
     @Bean
