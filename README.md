@@ -2,15 +2,26 @@
 
 ## Description
 
-The "Game Rental" application showcases how Axon Framework and Axon Server can be used during software development.
-The domain which is focused on is that of rental services from the perspective of a video game store. 
+The "Game Rental" application showcases how [Axon Framework](https://github.com/AxonFramework/AxonFramework) 
+ and [Axon Server](https://developer.axoniq.io/axon-server/overview) or [AxonIQ Cloud](https://cloud.axoniq.io/) can be used during software development.
+The domain focused on is that of rental services from the perspective of a video game store.
 
-This repository provides just such an application, albeit a demo rather than a full fledged solution.
-It serves a personal purpose of having a stepping stone application to live code during application.
-My intent is to build upon this sample during consecutive talks, further enhancing its capabilities and implementation as time progresses.
-For others, I hope this provides a simple and quick look into what it means to build an Axon-based application.
- 
-Due to its nature of being based on Axon, it will incorporate DDD, CQRS, Event Sourcing, and an overall messaging solution to communicate between distinct components.
+This repository provides just such an application, albeit a demo rather than a full-fledged solution.
+It serves the personal purpose of having a stepping stone application to live code during application.
+I intend to build upon this sample during consecutive talks, further enhancing its capabilities and implementation as time progresses.
+For others, I hope this provides a quick and straightforward look into what it means to build an Axon-based application.
+
+Due to its nature of being based on Axon, it incorporates [DDD](https://developer.axoniq.io/domain-driven-design/overview), 
+ [CQRS](https://developer.axoniq.io/cqrs/overview), [Event Sourcing](https://developer.axoniq.io/event-sourcing/overview), 
+ and an overall message-driven solution to communicate between distinct components.
+
+> **Demo Recordings with different Game Rental implementations**
+>
+> Since I aim to use this project for some time, it'll change through its lifecycle.
+> Most notably, I'll keep it up to date with recent versions of the dependencies.
+>
+> Due to this, recordings from previous iterations of this project will likely show slight deviations.
+> However, the taken steps during those recordings will remain intact.
  
 ## Project Traversal
 
