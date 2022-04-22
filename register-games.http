@@ -71,7 +71,7 @@ Content-Type: application/json
 {
   "title": "Cyberpunk 2077",
   "releaseDate": "2020-12-10T00:00:01.000Z",
-  "description": "Just one of the most anticipated games of 2020 is all, from the creators of the Witcher 3",
+  "description": "Cyberpunk styled first-person RPG, from the creators of the Witcher 3",
   "singleplayer": true,
   "multiplayer": true
 }
@@ -82,11 +82,38 @@ POST http://localhost:8080/rental/register/9001
 Content-Type: application/json
 
 {
+  "title": "Elden Ring",
+  "releaseDate": "2022-02-25T00:00:01.000Z",
+  "description": "The open-world \"You Died\" screen simulator",
+  "singleplayer": true,
+  "multiplayer": true
+}
+
+###
+
+POST http://localhost:8080/rental/register/9010
+Content-Type: application/json
+
+{
+  "title": "God of War Ragnarök",
+  "releaseDate": "2022-12-12T00:00:01.000Z",
+  "description": "Great action-adventure game, presumably containing large quantities of the sentence \"my boy\"",
+  "singleplayer": true,
+  "multiplayer": false
+}
+
+###
+
+POST http://localhost:8080/rental/register/9100
+Content-Type: application/json
+
+{
   "title": "The Legend of Zelda: Breath of the Wild 2",
-  "releaseDate": "2021-03-25T00:00:01.000Z",
+  "releaseDate": "2023-03-25T00:00:01.000Z",
   "description": "Amazing Action-Adventure about Zelda, or was it Link..?",
   "singleplayer": true,
   "multiplayer": false
 }
 
 ###
+
