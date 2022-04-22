@@ -44,3 +44,5 @@ As this is a Spring Boot application, simply running the `GameRentalApplication`
 Granted that a connection is made with an Axon Server instance.
 Ideally [Axon Cloud](https://console.cloud.axoniq.io/) is used for this, as is shown in step 3.
 If you desire to run Axon Server locally, you can download it [here](http://download.axoniq.io/quickstart/AxonQuickstart.zip).
+
+Note that any new components introduced in a step include unit tests too.
