@@ -36,7 +36,7 @@ This project currently contains the following steps:
 
 1. The `core-api`, containing the commands, events, queries, and query responses.
 2. The `command` model has been created, showing a `Game` aggregate.
-3. The application connects to [Axon Cloud](https://console.cloud.axoniq.io/) through the added Axon Server properties to the `application.properties`.
+3. The application connects to [AxonIQ Cloud](https://console.cloud.axoniq.io/) through the added [Axon Server](https://developer.axoniq.io/axon-server/overview) properties in the `application.properties`.
 4. The `query` model, a `GameView`, is provided, created/updated, and made queryable through the `GameCatalogProjector`.
 5. This step includes the [Reactor Extension](https://github.com/AxonFramework/extension-reactor), which is used by the `GameRentalController`.
 6. This step introduces cleaner distributed exceptional handling. It does so by throwing specifics exceptions in `@ExceptionHandler` annotated functions in the `Game` aggregate and `GameCatalogProjector`, containing an `ExceptionStatusCode`.
@@ -55,7 +55,10 @@ The application does expect it can make a connection with an Axon Server instanc
 Ideally, [Axon Cloud](https://console.cloud.axoniq.io/) is used for this, as is shown in step 3.
 If you desire to run Axon Server locally, you can download it [here](http://download.axoniq.io/quickstart/AxonQuickstart.zip).
 
-Note that any new components introduced in a step include unit tests too.
+> **Unit Tests**
+> 
+> Any new components introduced in a step include unit tests.
+> These can be used to better understand the project.
 
 For validating the application's internals, you can run the tests, use the REST endpoint, or connect with the [RSocket](https://rsocket.io/) endpoint.
 
