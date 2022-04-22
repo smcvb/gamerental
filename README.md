@@ -53,6 +53,10 @@ If you desire to run Axon Server locally, you can download it [here](http://down
 > Any new components introduced in a step include unit tests.
 > These can be used to better understand the project.
 
+To validate the inner workings of the app, two `.http` files have been provided to the root folder of this project.
+The `register-games.http` allows for the registration of several games, to build a base catalog.
+The `other-requests.http` can be used to test out all other operations.
+
 ## Starting your own Axon project
 
 The [steps](#project-traversal) this project traverses show a common approach towards constructing an Axon application. If you want to begin from scratch, consider these key aspects:
@@ -61,7 +65,3 @@ The [steps](#project-traversal) this project traverses show a common approach to
 * Use [Axon Cloud Console](https://console.cloud.axoniq.io/) to connect your application to a context.
   Using Axon Cloud allows you to persist your events and distributed commands, events, and queries.
 * Whenever anything is unclear, check out the [Reference Guide](https://docs.axoniq.io/reference-guide/) or drop a question on the [forum](https://discuss.axoniq.io/).
-
-To validate the inner workings of the app, two `.http` files have been provided to the root folder of this project.
-The `register-games.http` allows for the registration of several games, to build a base catalog.
-The `other-requests.http` can be used to test out all other operations.
