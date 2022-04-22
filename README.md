@@ -27,14 +27,14 @@ Due to its nature of being based on Axon, it incorporates [DDD](https://develope
 
 Distinct branches will be (made) available per public speaking, sharing a start and final solution branch separately.
 Additionally, several branches representing the steps throughout the lifecycle of the "Game Rental" application will be present, allowing you to:
-* Check out the exact step you are interested in.
+* Check out the exact step that interest you.
 * Perform a `git reset --hard step#` to reset your current branch.
 
-Next to providing the convenience of showing the flow, it also serves the purpose of being a back-up during the presentation.
+Next to providing the convenience of showing the flow, it also serves as a backup during the presentation.
 
-The following steps have been defined for this project:
+This project currently contains the following steps:
 
-1. The `core-api`, containing the commands, events, queries and query responses.
+1. The `core-api`, containing the commands, events, queries, and query responses.
 
 ## Running and testing the application
 
@@ -42,4 +42,16 @@ As this is a Spring Boot application, simply running the `GameRentalApplication`
 Granted that a connection is made with an Axon Server instance.
 If you desire to run Axon Server locally, you can download it [here](http://download.axoniq.io/quickstart/AxonQuickstart.zip).
 
-Note that any new components introduced in a step include unit tests too.
+> **Unit Tests**
+> 
+> Any new components introduced in a step include unit tests.
+> These can be used to better understand the project.
+
+## Starting your own Axon project
+
+The [steps](#project-traversal) this project traverses show a common approach towards constructing an Axon application. If you want to begin from scratch, consider these key aspects:
+
+* Use the [AxonIQ Initializr](https://start.axoniq.io/) to kick-start your project.
+* Use [Axon Cloud Console](https://console.cloud.axoniq.io/) to connect your application to a context.
+  Using Axon Cloud allows you to persist your events and distributed commands, events, and queries.
+* Whenever anything is unclear, check out the [Reference Guide](https://docs.axoniq.io/reference-guide/) or drop a question on the [forum](https://discuss.axoniq.io/).
