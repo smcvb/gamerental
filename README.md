@@ -47,6 +47,8 @@ Granted that a connection is made with an Axon Server instance.
 Ideally [Axon Cloud](https://console.cloud.axoniq.io/) is used for this, as is shown in step 3.
 If you desire to run Axon Server locally, you can download it [here](http://download.axoniq.io/quickstart/AxonQuickstart.zip).
 
+Note that any new components introduced in a step include unit tests too.
+
 To validate the inner workings of the app, two `.http` files have been provided to the root folder of this project.
 The `register-games.http` allows for the registration of several games, to build a base catalog.
 The `other-requests.http` can be used to test out all other operations.
