@@ -2,7 +2,8 @@
 
 ## Description
 
-The "Game Rental" application showcases how you can use Axon Framework and Axon Server during software development.
+The "Game Rental" application showcases how [Axon Framework](https://github.com/AxonFramework/AxonFramework) 
+ and [Axon Server](https://developer.axoniq.io/axon-server/overview) or [AxonIQ Cloud](https://cloud.axoniq.io/) can be used during software development.
 The domain focused on is that of rental services from the perspective of a video game store.
 
 This repository provides just such an application, albeit a demo rather than a full-fledged solution.
@@ -10,13 +11,23 @@ It serves the personal purpose of having a stepping stone application to live co
 I intend to build upon this sample during consecutive talks, further enhancing its capabilities and implementation as time progresses.
 For others, I hope this provides a quick and straightforward look into what it means to build an Axon-based application.
 
-Since Axon is at the basis of the sample, it will incorporate DDD, CQRS, Event Sourcing, and an overall messaging solution to communicate between distinct components.
+Due to its nature of being based on Axon, it incorporates [DDD](https://developer.axoniq.io/domain-driven-design/overview), 
+ [CQRS](https://developer.axoniq.io/cqrs/overview), [Event Sourcing](https://developer.axoniq.io/event-sourcing/overview), 
+ and an overall message-driven solution to communicate between distinct components.
+
+> **Demo Recordings with different Game Rental implementations**
+>
+> Since I aim to use this project for some time, it'll change through its lifecycle.
+> Most notably, I'll keep it up to date with recent versions of the dependencies.
+>
+> Due to this, recordings from previous iterations of this project will likely show slight deviations.
+> However, the taken steps during those recordings will remain intact.
  
 ## Project Traversal
 
 Distinct branches will be (made) available per public speaking, sharing a start and final solution branch separately.
 Additionally, several branches representing the steps throughout the lifecycle of the "Game Rental" application will be present, allowing you to:
-* Check out the exact step that interests you.
+* Check out the exact step that interest you.
 * Perform a `git reset --hard step#` to reset your current branch.
 
 Next to providing the convenience of showing the flow, it also serves as a backup during the presentation.
@@ -43,15 +54,17 @@ The application does expect it can make a connection with an Axon Server instanc
 Ideally, [Axon Cloud](https://console.cloud.axoniq.io/) is used for this, as is shown in step 3.
 If you desire to run Axon Server locally, you can download it [here](http://download.axoniq.io/quickstart/AxonQuickstart.zip).
 
-For validating the application's internals, the projects include tests and two `.http` files (in the root folder of this project). The tests show all the basics, whereas the `.http` files (supported in [IntelliJ Ultimate](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) only) allow invocation of the endpoints.
-The `register-games.http` allows for the registration of several games to build a base catalog.
-The `other-requests.http` file contains all other operations for testing.
+Note that any new components introduced in a step include unit tests too.
+
+To validate the inner workings of the app, two `.http` files have been provided to the root folder of this project.
+The `register-games.http` allows for the registration of several games, to build a base catalog.
+The `other-requests.http` can be used to test out all other operations.
 
 ## Starting your own Axon project
 
 The [steps](#project-traversal) this project traverses show a common approach towards constructing an Axon application. If you want to begin from scratch, consider these key aspects:
 
 * Use the [AxonIQ Initializr](https://start.axoniq.io/) to kick-start your project.
-* Use [Axon Cloud Console](https://console.cloud.axoniq.io/) to connect your application to a context. 
+* Use [Axon Cloud Console](https://console.cloud.axoniq.io/) to connect your application to a context.
   Using Axon Cloud allows you to persist your events and distributed commands, events, and queries.
 * Whenever anything is unclear, check out the [Reference Guide](https://docs.axoniq.io/reference-guide/) or drop a question on the [forum](https://discuss.axoniq.io/).
