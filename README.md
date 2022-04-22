@@ -42,3 +42,5 @@ The following steps have been defined for this project:
 As this is a Spring Boot application, simply running the `GameRentalApplication` is sufficient.
 Granted that a connection is made with an Axon Server instance.
 If you desire to run Axon Server locally, you can download it [here](http://download.axoniq.io/quickstart/AxonQuickstart.zip).
+
+Note that any new components introduced in a step include unit tests too.
