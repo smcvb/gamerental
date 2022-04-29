@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.7</version>
+        <version>2.6.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -18,7 +18,7 @@
     <packaging>jar</packaging>
 
     <name>gamerental</name>
-    <description>Sample application for a Game Rental application as a showcase for Axon</description>
+    <description>Sample project for a Game Rental application as a showcase for Axon</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
