@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.config.ConfigurerModule;
 import org.axonframework.eventhandling.EventBus;
+import org.axonframework.eventhandling.PropagatingErrorHandler;
 import org.axonframework.lifecycle.Phase;
 import org.axonframework.messaging.Message;
 import org.axonframework.messaging.interceptors.LoggingInterceptor;
@@ -84,5 +85,12 @@ public class ApplicationConfig {
                 logger.warn("Invoked onErrorDropped for exception [{}]", t.getClass(), t);
             }
         });
+    }
+
+    @Bean
+    public ConfigurerModule listenerInvocationErrorHandlerConfiguration() {
+        return configurer -> configurer.eventProcessing().registerDefaultListenerInvocationErrorHandler(
+                config -> PropagatingErrorHandler.INSTANCE
+        );
     }
 }

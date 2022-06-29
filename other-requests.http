@@ -66,4 +66,9 @@ Content-Type: application/json
   "multiplayer": true
 }
 
+### Bulk for tests
+
+POST http://localhost:8080/rental/register/bulk/2048
+
 ###
+

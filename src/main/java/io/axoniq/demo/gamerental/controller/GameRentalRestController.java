@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Profile("ui")
 @RestController
@@ -44,6 +46,22 @@ class GameRentalRestController {
                                                            gameDto.getDescription(),
                                                            gameDto.isSingleplayer(),
                                                            gameDto.isMultiplayer()));
+    }
+
+    @PostMapping("/register/bulk/{numberOfGames}")
+    public Flux<Object> register(@PathVariable("numberOfGames") int numberOfGames) {
+        return commandGateway.sendAll(
+                Flux.fromStream(
+                        IntStream.range(0, numberOfGames)
+                                 .mapToObj(i -> {
+                                     String identifierAndTitle = "G[" + i + "]";
+                                     return new RegisterGameCommand(
+                                             identifierAndTitle, identifierAndTitle, Instant.now(),
+                                             "The description for" + identifierAndTitle, true, false
+                                     );
+                                 })
+                )
+        );
     }
 
     @PostMapping("/rent/{identifier}")
