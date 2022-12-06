@@ -7,8 +7,9 @@ The "Game Rental" application showcases how [Axon Framework](https://github.com/
 The domain focused on is that of rental services from the perspective of a video game store.
 
 This repository provides just such an application, albeit a demo rather than a full-fledged solution.
-It serves the personal purpose of having a stepping stone application to live code during application.
-I intend to build upon this sample during consecutive talks, further enhancing its capabilities and implementation as time progresses.
+It serves the personal purpose of having a stepping stone application to live code during presentations.
+I intend to build upon this sample during consecutive talks, further enhancing its capabilities as time progresses.
+
 For others, I hope this provides a quick and straightforward look into what it means to build an Axon-based application.
 
 Due to its nature of being based on Axon, it incorporates [DDD](https://developer.axoniq.io/domain-driven-design/overview), 
@@ -43,12 +44,13 @@ This project currently contains the following steps:
 7. Spring's `@Profile{{profile-name})` annotation has been added to the `Game`, `GameCatalogProjector`, `GameViewRepository` and `GameRentalController`, allowing for application distribution.
 8. Preparation to introduce another endpoint based on RSocket, by renaming the controller to contain "rest" in the name and by extracting the exception mapping registration.
 9. Introduce the `GameRentalRSocketController`, providing an entry point to the application using [RSocket](https://rsocket.io/).
+10. Add the "reservations" query end, invoking a `ReservationService` once a game is returned. Since this service only has a flunky implementation, attach a [dead-letter queue](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#dead-letter-queue) to the `reservations` processing group to deal with errors.
 
 ## Running and testing the application
 
 As this is a Spring Boot application, simply running the `GameRentalApplication` is sufficient.
 However, Spring profiles are present, which allow for running portions of this application.
-More specifically, there's a `command`, `query`, and `ui` profile present, thus segregating the `Game` aggregate, `GameCatalogProjector`, and `GameRentalController` into their separate runnables.
+More specifically, there's a `command`, `query`, `ui`, `rsocket`, and `reservations` profile present, thus separating the `Game` aggregate, `GameCatalogProjector`, `GameRentalRestController`, `GameRentalRSocketController`, and reservation specifics components into distinct groups.
 Furthermore, when you use IntelliJ, you can use the "Run Configurations" from the `./.run` to speed up the startup process.
 
 The application does expect it can make a connection with an Axon Server instance.
@@ -62,9 +64,11 @@ If you desire to run Axon Server locally, you can download it [here](http://down
 
 For validating the application's internals, you can run the tests, use the REST endpoint, or connect with the [RSocket](https://rsocket.io/) endpoint.
 
-When testing through the REST endpoint, [IntelliJ Ultimate](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) you can use the included `.http` files (in the root folder of this project).
-The `register-games.http` allows for the registration of several games to build a base catalog.
-The `other-requests.http` file contains all other operations for testing.
+When testing through the REST endpoint, [IntelliJ Ultimate](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) you can use the included `.http` files (in the `http-requests` folder of this project).
+The `1-register-games.http` allows for the registration of several games to build a base catalog.
+The `2-rent-return-find.http` file contains rent, return, and find operations for testing.
+The `3-bulk-rent-return.http` file contains a bulk of rent and return operations for a single game to test bulk.
+The `4-dead-letter-management.http` file contains the endpoint to process dead-letters.
 
 When testing through RSocket, the most straightforward approach is to install the [RSocket Client CLI](https://github.com/making/rsc), or `rsc` for short.
 The README of `rsc` provides concrete explanations on how to install it in your environment.
@@ -79,9 +83,11 @@ With `rsc` in place, you can use the following commands to test the application:
 
 ## Starting your own Axon project
 
-The [steps](#project-traversal) this project traverses show a common approach towards constructing an Axon application. If you want to begin from scratch, consider these key aspects:
+The [steps](#project-traversal) this project traverses show a common approach towards constructing an Axon application. 
+If you want to begin from scratch, consider these key aspects:
 
 * Use the [AxonIQ Initializr](https://start.axoniq.io/) to kick-start your project.
 * Use [Axon Cloud Console](https://console.cloud.axoniq.io/) to connect your application to a context.
   Using Axon Cloud allows you to persist your events and distributed commands, events, and queries.
+* If you want a longer learning experience, please take a look at the [AxonIQ Academy](https://academy.axoniq.io/).
 * Whenever anything is unclear, check out the [Reference Guide](https://docs.axoniq.io/reference-guide/) or drop a question on the [forum](https://discuss.axoniq.io/).
