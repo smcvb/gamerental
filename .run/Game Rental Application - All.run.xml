@@ -1,10 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Game Rental Application - All" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="Game Rental Application - Distributed">
-    <module name="gamerental" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="io.axoniq.demo.gamerental.GameRentalApplication" />
-    <option name="ACTIVE_PROFILES" value="ui,command,query,rsocket" />
-    <option name="ALTERNATIVE_JRE_PATH" />
-    <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+    <option name="ACTIVE_PROFILES" value="ui,command,query,rsocket,dead-letters" />
     <additionalParameters>
       <param>
         <option name="enabled" value="true" />
@@ -12,6 +8,8 @@
         <option name="value" value="8080" />
       </param>
     </additionalParameters>
+    <module name="gamerental" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.axoniq.demo.gamerental.GameRentalApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
