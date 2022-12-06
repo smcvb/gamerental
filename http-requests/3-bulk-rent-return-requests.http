@@ -1,0 +1,254 @@
+### First pass
+### Gerard rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Gerard
+Content-Type: application/json
+
+### Gerard returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Gerard
+Content-Type: application/json
+
+### Mitchell rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Mitchell
+Content-Type: application/json
+
+### Mitchell returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Mitchell
+Content-Type: application/json
+
+### Steven rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Steven
+Content-Type: application/json
+
+### Steven returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Steven
+Content-Type: application/json
+
+### Stefan rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Stefan
+Content-Type: application/json
+
+### Stefan returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Stefan
+Content-Type: application/json
+
+### Corrado rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Corrado
+Content-Type: application/json
+
+### Corrado returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Corrado
+Content-Type: application/json
+
+### Second pass
+### Gerard rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Gerard
+Content-Type: application/json
+
+### Gerard returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Gerard
+Content-Type: application/json
+
+### Mitchell rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Mitchell
+Content-Type: application/json
+
+### Mitchell returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Mitchell
+Content-Type: application/json
+
+### Steven rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Steven
+Content-Type: application/json
+
+### Steven returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Steven
+Content-Type: application/json
+
+### Stefan rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Stefan
+Content-Type: application/json
+
+### Stefan returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Stefan
+Content-Type: application/json
+
+### Corrado rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Corrado
+Content-Type: application/json
+
+### Corrado returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Corrado
+Content-Type: application/json
+
+### Third pass
+### Gerard rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Gerard
+Content-Type: application/json
+
+### Gerard returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Gerard
+Content-Type: application/json
+
+### Mitchell rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Mitchell
+Content-Type: application/json
+
+### Mitchell returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Mitchell
+Content-Type: application/json
+
+### Steven rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Steven
+Content-Type: application/json
+
+### Steven returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Steven
+Content-Type: application/json
+
+### Stefan rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Stefan
+Content-Type: application/json
+
+### Stefan returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Stefan
+Content-Type: application/json
+
+### Corrado rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Corrado
+Content-Type: application/json
+
+### Corrado returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Corrado
+Content-Type: application/json
+
+### Fourth pass
+### Gerard rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Gerard
+Content-Type: application/json
+
+### Gerard returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Gerard
+Content-Type: application/json
+
+### Mitchell rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Mitchell
+Content-Type: application/json
+
+### Mitchell returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Mitchell
+Content-Type: application/json
+
+### Steven rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Steven
+Content-Type: application/json
+
+### Steven returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Steven
+Content-Type: application/json
+
+### Stefan rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Stefan
+Content-Type: application/json
+
+### Stefan returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Stefan
+Content-Type: application/json
+
+### Corrado rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Corrado
+Content-Type: application/json
+
+### Corrado returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Corrado
+Content-Type: application/json
+
+### Fifth pass
+### Gerard rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Gerard
+Content-Type: application/json
+
+### Gerard returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Gerard
+Content-Type: application/json
+
+### Mitchell rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Mitchell
+Content-Type: application/json
+
+### Mitchell returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Mitchell
+Content-Type: application/json
+
+### Steven rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Steven
+Content-Type: application/json
+
+### Steven returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Steven
+Content-Type: application/json
+
+### Stefan rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Stefan
+Content-Type: application/json
+
+### Stefan returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Stefan
+Content-Type: application/json
+
+### Corrado rents Elden Ring
+
+POST http://localhost:8080/rental/rent/9001?renter=Corrado
+Content-Type: application/json
+
+### Corrado returns Elden Ring
+
+POST http://localhost:8080/rental/return/9001?returner=Corrado
+Content-Type: application/json

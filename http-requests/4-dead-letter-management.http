@@ -1,0 +1,6 @@
+### Process any sequence for Processing Group "reservations"
+
+POST http://localhost:8080/dead-letter/reservations/any
+Content-Type: application/json
+
+###
