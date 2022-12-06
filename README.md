@@ -48,7 +48,7 @@ This project currently contains the following steps:
 
 As this is a Spring Boot application, simply running the `GameRentalApplication` is sufficient.
 However, Spring profiles are present, which allow for running portions of this application.
-More specifically, there's a `command`, `query`, and `ui` profile present, thus separating the `Game` aggregate, `GameCatalogProjector`, and `GameRentalController` into distinct groups.
+More specifically, there's a `command`, `query`, and `ui` profile present, thus separating the `Game` aggregate, `GameCatalogProjector`, and `GameRentalRestController` into distinct groups.
 Furthermore, when you use IntelliJ, you can use the "Run Configurations" from the `./.run` to speed up the startup process.
 
 The application does expect it can make a connection with an Axon Server instance.
