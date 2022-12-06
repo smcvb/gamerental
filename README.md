@@ -64,9 +64,11 @@ If you desire to run Axon Server locally, you can download it [here](http://down
 
 For validating the application's internals, you can run the tests, use the REST endpoint, or connect with the [RSocket](https://rsocket.io/) endpoint.
 
-When testing through the REST endpoint, [IntelliJ Ultimate](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) you can use the included `.http` files (in the root folder of this project).
-The `register-games.http` allows for the registration of several games to build a base catalog.
-The `other-requests.http` file contains all other operations for testing.
+When testing through the REST endpoint, [IntelliJ Ultimate](https://www.jetbrains.com/help/idea/http-client-in-product-code-editor.html) you can use the included `.http` files (in the `http-requests` folder of this project).
+The `1-register-games.http` allows for the registration of several games to build a base catalog.
+The `2-rent-return-find.http` file contains rent, return, and find operations for testing.
+The `3-bulk-rent-return.http` file contains a bulk of rent and return operations for a single game to test bulk.
+The `4-dead-letter-management.http` file contains the endpoint to process dead-letters.
 
 When testing through RSocket, the most straightforward approach is to install the [RSocket Client CLI](https://github.com/making/rsc), or `rsc` for short.
 The README of `rsc` provides concrete explanations on how to install it in your environment.
