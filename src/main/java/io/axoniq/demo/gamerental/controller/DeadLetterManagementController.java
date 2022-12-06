@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.CompletableFuture;
 
-@Profile("dead-letters")
+@Profile("reservations")
 @RestController
 @RequestMapping("/dead-letter")
 class DeadLetterManagementController {

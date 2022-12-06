@@ -10,7 +10,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Profile("dead-letters")
+@Profile("reservations")
 @Component
 class DeadLetterProcessor {
 

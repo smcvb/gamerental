@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
-@Profile("dead-letters")
+@Profile("reservations")
 @Component
 class FlunkyReservationService implements ReservationService {
 

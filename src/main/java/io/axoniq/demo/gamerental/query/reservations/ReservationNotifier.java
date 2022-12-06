@@ -6,7 +6,7 @@ import org.axonframework.eventhandling.EventHandler;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-@Profile("dead-letters")
+@Profile("reservations")
 @Component
 @ProcessingGroup("reservations")
 class ReservationNotifier {
