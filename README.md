@@ -43,6 +43,7 @@ This project currently contains the following steps:
 7. Spring's `@Profile{{profile-name})` annotation has been added to the `Game`, `GameCatalogProjector`, `GameViewRepository` and `GameRentalController`, allowing for application distribution.
 8. Preparation to introduce another endpoint based on RSocket, by renaming the controller to contain "rest" in the name and by extracting the exception mapping registration.
 9. Introduce the `GameRentalRSocketController`, providing an entry point to the application using [RSocket](https://rsocket.io/).
+10. Add the "reservations" query end, invoking a `ReservationService` once a game is returned. Since this service only has a flunky implementation, attach a [dead-letter queue](https://docs.axoniq.io/reference-guide/axon-framework/events/event-processors#dead-letter-queue) to the `reservations` processing group to deal with errors.
 
 ## Running and testing the application
 
