@@ -7,8 +7,9 @@ The "Game Rental" application showcases how [Axon Framework](https://github.com/
 The domain focused on is that of rental services from the perspective of a video game store.
 
 This repository provides just such an application, albeit a demo rather than a full-fledged solution.
-It serves the personal purpose of having a stepping stone application to live code during application.
-I intend to build upon this sample during consecutive talks, further enhancing its capabilities and implementation as time progresses.
+It serves the personal purpose of having a stepping stone application to live code during presentations.
+I intend to build upon this sample during consecutive talks, further enhancing its capabilities as time progresses.
+
 For others, I hope this provides a quick and straightforward look into what it means to build an Axon-based application.
 
 Due to its nature of being based on Axon, it incorporates [DDD](https://developer.axoniq.io/domain-driven-design/overview), 
@@ -52,9 +53,11 @@ If you desire to run Axon Server locally, you can download it [here](http://down
 
 ## Starting your own Axon project
 
-The [steps](#project-traversal) this project traverses show a common approach towards constructing an Axon application. If you want to begin from scratch, consider these key aspects:
+The [steps](#project-traversal) this project traverses show a common approach towards constructing an Axon application. 
+If you want to begin from scratch, consider these key aspects:
 
 * Use the [AxonIQ Initializr](https://start.axoniq.io/) to kick-start your project.
 * Use [Axon Cloud Console](https://console.cloud.axoniq.io/) to connect your application to a context.
   Using Axon Cloud allows you to persist your events and distributed commands, events, and queries.
+* If you want a longer learning experience, please take a look at the [AxonIQ Academy](https://academy.axoniq.io/).
 * Whenever anything is unclear, check out the [Reference Guide](https://docs.axoniq.io/reference-guide/) or drop a question on the [forum](https://discuss.axoniq.io/).
