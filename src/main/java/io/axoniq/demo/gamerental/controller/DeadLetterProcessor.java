@@ -14,15 +14,21 @@ import java.util.concurrent.Executors;
 @Component
 class DeadLetterProcessor {
 
-    private final EventProcessingConfiguration processingConfiguration;
+    private final EventProcessingConfiguration processingConfig;
     private final ExecutorService executorService;
 
-    public DeadLetterProcessor(EventProcessingConfiguration processingConfiguration) {
-        this.processingConfiguration = processingConfiguration;
+    public DeadLetterProcessor(EventProcessingConfiguration processingConfig) {
+        this.processingConfig = processingConfig;
         this.executorService = Executors.newFixedThreadPool(5);
     }
 
     public CompletableFuture<Boolean> processorAnyFor(String processingGroup) {
-        return CompletableFuture.completedFuture(true);
+        SequencedDeadLetterProcessor<EventMessage<?>> letterProcessor =
+                processingConfig.sequencedDeadLetterProcessor(processingGroup)
+                                .orElseThrow(() -> new IllegalArgumentException(
+                                        "There is no Dead-Letter Queue configured for processing group ["
+                                                + processingGroup + "]"
+                                ));
+        return CompletableFuture.supplyAsync(letterProcessor::processAny, executorService);
     }
 }

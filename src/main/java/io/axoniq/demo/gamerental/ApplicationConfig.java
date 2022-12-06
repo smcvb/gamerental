@@ -4,8 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.axonframework.commandhandling.CommandBus;
+import org.axonframework.common.jpa.EntityManagerProvider;
+import org.axonframework.common.transaction.TransactionManager;
 import org.axonframework.config.ConfigurerModule;
 import org.axonframework.eventhandling.EventBus;
+import org.axonframework.eventhandling.deadletter.jpa.JpaSequencedDeadLetterQueue;
 import org.axonframework.lifecycle.Phase;
 import org.axonframework.messaging.Message;
 import org.axonframework.messaging.interceptors.LoggingInterceptor;
@@ -84,5 +87,25 @@ public class ApplicationConfig {
                 logger.warn("Invoked onErrorDropped for exception [{}]", t.getClass(), t);
             }
         });
+    }
+
+    @Bean
+    public ConfigurerModule deadLetterQueueConfigurerModule() {
+        return configurer -> configurer.eventProcessing().registerDeadLetterQueue(
+                "reservations",
+                config -> JpaSequencedDeadLetterQueue.builder()
+                                                     .processingGroup("reservations")
+                                                     .entityManagerProvider(config.getComponent(EntityManagerProvider.class))
+                                                     .transactionManager(config.getComponent(TransactionManager.class))
+                                                     .serializer(config.eventSerializer())
+                                                     .build()
+        );
+    }
+
+    @Bean
+    public ConfigurerModule enqueuePolicyConfigurerModule() {
+        return configurer -> configurer.eventProcessing().registerDeadLetterPolicy(
+                "reservations", config -> new RetryConstrainedEnqueuePolicy(5)
+        );
     }
 }
