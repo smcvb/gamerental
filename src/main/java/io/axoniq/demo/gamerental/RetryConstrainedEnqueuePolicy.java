@@ -22,7 +22,7 @@ public class RetryConstrainedEnqueuePolicy implements EnqueuePolicy<EventMessage
         int retries = (int) letter.diagnostics().getOrDefault("retries", 0);
         if (retries == 0) {
             return Decisions.enqueue(cause, l -> MetaData.with(RETRY_COUNT_KEY, 0));
-        } else if (retries > retryConstraint) {
+        } else if (retries >= retryConstraint) {
             return Decisions.evict();
         } else {
             return Decisions.requeue(cause, l -> l.diagnostics().and(RETRY_COUNT_KEY, retries + 1));
