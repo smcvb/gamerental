@@ -14,7 +14,7 @@ public class ApplicationConfig {
 
     @Bean
     @Qualifier("messageSerializer")
-    public Serializer messageSerializer() {
+    Serializer messageSerializer() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule())
                     .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
