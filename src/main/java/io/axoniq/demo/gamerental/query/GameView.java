@@ -1,9 +1,10 @@
 package io.axoniq.demo.gamerental.query;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
 import java.time.Instant;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
 class GameView {
