@@ -33,7 +33,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public LoggingInterceptor<Message<?>> loggingInterceptor() {
+    LoggingInterceptor<Message<?>> loggingInterceptor() {
         return new LoggingInterceptor<>();
     }
 
@@ -44,7 +44,7 @@ public class ApplicationConfig {
      * further, but 4.6.0 isn't finished yet.
      */
     @Bean
-    public ConfigurerModule loggingInterceptorConfigurerModule(LoggingInterceptor<Message<?>> loggingInterceptor) {
+    ConfigurerModule loggingInterceptorConfigurerModule(LoggingInterceptor<Message<?>> loggingInterceptor) {
         return configurer -> {
             configurer.onInitialize(config -> config.onStart(Phase.INSTRUCTION_COMPONENTS, () -> {
                 CommandBus commandBus = config.commandBus();
