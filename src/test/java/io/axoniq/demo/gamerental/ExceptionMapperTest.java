@@ -5,9 +5,10 @@ import io.axoniq.demo.gamerental.coreapi.RentalCommandException;
 import io.axoniq.demo.gamerental.coreapi.RentalQueryException;
 import org.axonframework.commandhandling.CommandExecutionException;
 import org.axonframework.queryhandling.QueryExecutionException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ExceptionMapperTest {
 
