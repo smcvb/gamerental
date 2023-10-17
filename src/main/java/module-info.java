@@ -7,6 +7,7 @@ module gamerental {
     // Opened modules for reflection:
     opens io.axoniq.demo.gamerental to spring.core, spring.beans, spring.context;
     opens io.axoniq.demo.gamerental.coreapi to com.fasterxml.jackson.databind, org.axonframework.messaging;
+    opens io.axoniq.demo.gamerental.command to spring.core, org.axonframework.messaging;
 
     // Required modules:
     // Serialization
@@ -29,4 +30,5 @@ module gamerental {
     requires org.axonframework.eventsourcing;
     requires org.axonframework.messaging;
     requires org.axonframework.modelling;
+    requires org.axonframework.spring;
 }
