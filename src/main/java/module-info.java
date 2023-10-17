@@ -34,6 +34,7 @@ module gamerental {
     requires spring.core;
     requires spring.data.commons;
     requires spring.data.jpa;
+    requires spring.messaging;
     requires spring.web;
     // Axon Framework
     requires org.axonframework.config;
