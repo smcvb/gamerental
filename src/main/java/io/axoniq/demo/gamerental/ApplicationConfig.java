@@ -18,9 +18,9 @@ import org.axonframework.serialization.json.JacksonSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import reactor.core.publisher.Hooks;
 
 import java.lang.invoke.MethodHandles;
@@ -32,8 +32,8 @@ public class ApplicationConfig {
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Bean
-    @Qualifier("messageSerializer")
-    Serializer messageSerializer() {
+    @Primary
+    Serializer serializer() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule())
                     .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
