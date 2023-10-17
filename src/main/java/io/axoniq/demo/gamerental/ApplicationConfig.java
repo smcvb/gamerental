@@ -15,15 +15,13 @@ import org.axonframework.serialization.json.JacksonSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import reactor.core.publisher.Hooks;
 
 import java.lang.invoke.MethodHandles;
 import java.util.function.Consumer;
-
-import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class ApplicationConfig {
