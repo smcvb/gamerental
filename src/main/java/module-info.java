@@ -1,8 +1,6 @@
 module gamerental {
     // Exports 'coreapi' as consciously shared module:
     exports io.axoniq.demo.gamerental.coreapi;
-    // Exported for Spring Devtools
-    exports io.axoniq.demo.gamerental;
 
     // Opened modules for reflection:
     opens io.axoniq.demo.gamerental to spring.core, spring.beans, spring.context;
