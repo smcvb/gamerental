@@ -8,6 +8,7 @@ module gamerental {
     opens io.axoniq.demo.gamerental to spring.core, spring.beans, spring.context;
     opens io.axoniq.demo.gamerental.coreapi to com.fasterxml.jackson.databind, org.axonframework.messaging;
     opens io.axoniq.demo.gamerental.command to spring.core, org.axonframework.messaging;
+    opens io.axoniq.demo.gamerental.query to spring.core, org.axonframework.messaging, org.hibernate.orm.core;
 
     // Required modules:
     // Serialization
@@ -20,11 +21,14 @@ module gamerental {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     // Spring
+    requires spring.aop;
     requires spring.beans;
     requires spring.boot;
     requires spring.boot.autoconfigure;
     requires spring.context;
     requires spring.core;
+    requires spring.data.commons;
+    requires spring.data.jpa;
     // Axon Framework
     requires org.axonframework.config;
     requires org.axonframework.eventsourcing;
