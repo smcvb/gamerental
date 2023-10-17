@@ -23,14 +23,16 @@ import reactor.core.publisher.Hooks;
 import java.lang.invoke.MethodHandles;
 import java.util.function.Consumer;
 
+import org.springframework.context.annotation.Primary;
+
 @Configuration
 public class ApplicationConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Bean
-    @Qualifier("messageSerializer")
-    Serializer messageSerializer() {
+    @Primary
+    Serializer serializer() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule())
                     .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
