@@ -10,6 +10,7 @@ module gamerental {
     opens io.axoniq.demo.gamerental.command to spring.core, org.axonframework.messaging;
     opens io.axoniq.demo.gamerental.query to spring.core, org.axonframework.messaging, org.hibernate.orm.core;
     opens io.axoniq.demo.gamerental.controller to spring.beans, spring.core, com.fasterxml.jackson.databind;
+    opens io.axoniq.demo.gamerental.query.reservations to spring.core, org.axonframework.messaging;
 
     // Required modules:
     // Serialization
