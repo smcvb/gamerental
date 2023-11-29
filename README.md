@@ -37,7 +37,7 @@ This project currently contains the following steps:
 
 1. The `core-api`, containing the commands, events, queries, and query responses.
 2. The `command` model has been created, showing a `Game` aggregate.
-3. The application connects to [AxonIQ Cloud](https://console.cloud.axoniq.io/) through the added [Axon Server](https://developer.axoniq.io/axon-server/overview) properties in the `application.properties`.
+3. The application connects to [AxonIQ Console](https://console.axoniq.io/) and [AxonIQ Cloud](https://console.cloud.axoniq.io/) through the added AxonIQ Console and [Axon Server](https://developer.axoniq.io/axon-server/overview) properties in the `application.properties`.
 4. The `query` model, a `GameView`, is provided, created/updated, and made queryable through the `GameCatalogProjector`.
 5. This step includes the [Reactor Extension](https://github.com/AxonFramework/extension-reactor), which is used by the `GameRentalController`.
 6. This step introduces cleaner distributed exceptional handling. It does so by throwing specifics exceptions in `@ExceptionHandler` annotated functions in the `Game` aggregate and `GameCatalogProjector`, containing an `ExceptionStatusCode`.
@@ -70,6 +70,6 @@ If you want to begin from scratch, consider these key aspects:
 
 * Use the [AxonIQ Initializr](https://start.axoniq.io/) to kick-start your project.
 * Use [Axon Cloud Console](https://console.cloud.axoniq.io/) to connect your application to a context.
-  Using Axon Cloud allows you to persist your events and distributed commands, events, and queries.
+  Using Axon Cloud allows you to persist your events and distribute commands, events, and queries.
 * If you want a longer learning experience, please take a look at the [AxonIQ Academy](https://academy.axoniq.io/).
 * Whenever anything is unclear, check out the [Reference Guide](https://docs.axoniq.io/reference-guide/) or drop a question on the [forum](https://discuss.axoniq.io/).
