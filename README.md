@@ -58,6 +58,6 @@ If you want to begin from scratch, consider these key aspects:
 
 * Use the [AxonIQ Initializr](https://start.axoniq.io/) to kick-start your project.
 * Use [Axon Cloud Console](https://console.cloud.axoniq.io/) to connect your application to a context.
-  Using Axon Cloud allows you to persist your events and distributed commands, events, and queries.
+  Using Axon Cloud allows you to persist your events and distribute commands, events, and queries.
 * If you want a longer learning experience, please take a look at the [AxonIQ Academy](https://academy.axoniq.io/).
 * Whenever anything is unclear, check out the [Reference Guide](https://docs.axoniq.io/reference-guide/) or drop a question on the [forum](https://discuss.axoniq.io/).
