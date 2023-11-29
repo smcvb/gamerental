@@ -10,6 +10,7 @@
     </additionalParameters>
     <module name="gamerental" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="io.axoniq.demo.gamerental.GameRentalApplication" />
+    <option name="VM_PARAMETERS" value="--add-modules jdk.unsupported" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
