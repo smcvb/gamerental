@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Game Rental Application - UI" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="Game Rental Application - Distributed">
-    <option name="ACTIVE_PROFILES" value="ui" />
+  <configuration default="false" name="Game Rental Application - Reservations" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" folderName="Game Rental Application - Distributed">
+    <option name="ACTIVE_PROFILES" value="reservations" />
     <additionalParameters>
       <param>
         <option name="enabled" value="true" />
         <option name="name" value="server.port" />
-        <option name="value" value="8080" />
+        <option name="value" value="8084" />
       </param>
     </additionalParameters>
     <module name="gamerental" />
