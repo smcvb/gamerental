@@ -108,11 +108,11 @@ POST http://localhost:8080/rental/register/9100
 Content-Type: application/json
 
 {
-  "title": "The Legend of Zelda: Breath of the Wild 2",
-  "releaseDate": "2023-03-25T00:00:01.000Z",
-  "description": "Amazing Action-Adventure about Zelda, or was it Link..?",
+  "title": "Grand Theft Auto VI",
+  "releaseDate": "2025-02-27T00:00:01.000Z",
+  "description": "Is this game really _just_ about car theft?",
   "singleplayer": true,
-  "multiplayer": false
+  "multiplayer": true
 }
 
 ###
