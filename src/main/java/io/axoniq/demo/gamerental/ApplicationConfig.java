@@ -46,12 +46,6 @@ public class ApplicationConfig {
         return new LoggingInterceptor<>();
     }
 
-    /**
-     * Using a {@link ConfigurerModule} provides a means to register components as part of the start and shutdown cycles
-     * of Axon Framework. The {@link LoggingInterceptor} is registered in the latest phase on start-up for the buses.
-     * Framework issue #2061 (https://github.com/AxonFramework/AxonFramework/pull/2061) would've simplified this
-     * further, but 4.6.0 isn't finished yet.
-     */
     @Bean
     ConfigurerModule loggingInterceptorConfigurerModule(LoggingInterceptor<Message<?>> loggingInterceptor) {
         return configurer -> {
