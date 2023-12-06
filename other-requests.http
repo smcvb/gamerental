@@ -13,11 +13,6 @@ Accept: application/json
 GET http://localhost:8080/rental/catalog
 Accept: application/json
 
-### Watch Catalog
-
-GET http://localhost:8080/rental/catalog/watch
-Accept: text/event-stream
-
 ### Rent Game 1234
 
 POST http://localhost:8080/rental/rent/1234?renter=Allard
@@ -53,7 +48,12 @@ Content-Type: application/json
 POST http://localhost:8080/rental/return/1234?returner=Steven
 Content-Type: application/json
 
-### Register Game 4242
+### Watch Catalog
+
+GET http://localhost:8080/rental/catalog/watch
+Accept: text/event-stream
+
+### Register Game 4242 to watch
 
 POST http://localhost:8080/rental/register/4242
 Content-Type: application/json
@@ -66,4 +66,15 @@ Content-Type: application/json
   "multiplayer": true
 }
 
-###
+### Register Game 3333 to watch
+
+POST http://localhost:8080/rental/register/3333
+Content-Type: application/json
+
+{
+  "title": "The Legend of Zelda: Tears of the Kingdom",
+  "releaseDate": "2023-05-12T00:00:01.000Z",
+  "description": "Amazing Action-Adventure about Zelda, or was it Link..?",
+  "singleplayer": true,
+  "multiplayer": false
+}
