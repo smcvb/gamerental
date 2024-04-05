@@ -76,6 +76,18 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Event Encryption Transformation -->
+        <dependency>
+            <groupId>io.axoniq</groupId>
+            <artifactId>axonserver-connector-java</artifactId>
+            <version>2023.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.axoniq.dataprotection</groupId>
+            <artifactId>axon-data-protection-axon4</artifactId>
+            <version>4.5.1</version>
+        </dependency>
+
         <!-- Test Dependencies -->
         <dependency>
             <groupId>org.axonframework</groupId>
@@ -120,4 +132,23 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>axoniq-nexus</id>
+            <url>https://nexus.dev.axoniq.net/repository/products/</url>
+        </repository>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <checksumPolicy>fail</checksumPolicy>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
 </project>
