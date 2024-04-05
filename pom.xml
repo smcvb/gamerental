@@ -27,7 +27,7 @@
         <java.version>21</java.version>
 
         <axon.version>4.9.4</axon.version>
-        <console.version>1.2.0</console.version>
+        <console.version>1.4.1</console.version>
     </properties>
 
     <dependencies>
