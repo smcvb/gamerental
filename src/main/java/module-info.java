@@ -43,4 +43,10 @@ module gamerental {
     requires org.axonframework.modelling;
     requires org.axonframework.spring;
     requires org.axonframework.extensions.reactor;
+
+    // Event Transformation sample
+    requires org.axonframework.connector.axonserver;
+    requires io.axoniq.connector.axonserver;
+    requires axon.data.protection.axon4;
+    requires com.google.protobuf;
 }
