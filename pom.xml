@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.4</version>
+        <version>3.4.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -26,8 +26,8 @@
 
         <java.version>21</java.version>
 
-        <axon.version>4.9.1</axon.version>
-        <console.version>1.2.0</console.version>
+        <axon.version>4.11.2</axon.version>
+        <console.version>1.9.2</console.version>
     </properties>
 
     <dependencies>
@@ -128,7 +128,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.5.3</version>
             </plugin>
         </plugins>
     </build>
