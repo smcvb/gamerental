@@ -8,11 +8,10 @@ import io.axoniq.demo.gamerental.coreapi.GameRegisteredEvent;
 import io.axoniq.demo.gamerental.coreapi.GameRentedEvent;
 import io.axoniq.demo.gamerental.coreapi.GameReturnedEvent;
 import io.axoniq.demo.gamerental.coreapi.RentalQueryException;
-import org.axonframework.config.ProcessingGroup;
-import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.annotation.EventHandler;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
-import org.axonframework.queryhandling.QueryHandler;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
+import org.axonframework.queryhandling.annotation.QueryHandler;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Profile("query")
 @Component
-@ProcessingGroup("game-catalog")
+//@ProcessingGroup("game-catalog")
 class GameCatalogProjector {
 
     private final GameViewRepository repository;
@@ -35,35 +34,35 @@ class GameCatalogProjector {
 
     @EventHandler
     public void on(GameRegisteredEvent event) {
-        String title = event.getTitle();
+        String title = event.title();
 
-        repository.save(new GameView(event.getGameIdentifier(),
+        repository.save(new GameView(event.gameIdentifier(),
                                      title,
-                                     event.getReleaseDate(),
-                                     event.getDescription(),
-                                     event.isSingleplayer(),
-                                     event.isMultiplayer()));
+                                     event.releaseDate(),
+                                     event.description(),
+                                     event.singleplayer(),
+                                     event.multiplayer()));
 
         updateEmitter.emit(FullGameCatalogQuery.class, query -> true, title);
     }
 
     @EventHandler
     public void on(GameRentedEvent event) {
-        Optional<GameView> result = repository.findById(event.getGameIdentifier());
+        Optional<GameView> result = repository.findById(event.gameIdentifier());
         if (result.isPresent()) {
             result.get().decrementStock();
         } else {
-            throw new IllegalArgumentException("Game with id [" + event.getGameIdentifier() + "] could not be found.");
+            throw new IllegalArgumentException("Game with id [" + event.gameIdentifier() + "] could not be found.");
         }
     }
 
     @EventHandler
     public void on(GameReturnedEvent event) {
-        Optional<GameView> result = repository.findById(event.getGameIdentifier());
+        Optional<GameView> result = repository.findById(event.gameIdentifier());
         if (result.isPresent()) {
             result.get().incrementStock();
         } else {
-            throw new IllegalArgumentException("Game with id [" + event.getGameIdentifier() + "] could not be found.");
+            throw new IllegalArgumentException("Game with id [" + event.gameIdentifier() + "] could not be found.");
         }
     }
 

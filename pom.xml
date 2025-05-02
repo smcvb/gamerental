@@ -26,16 +26,22 @@
 
         <java.version>21</java.version>
 
-        <axon.version>4.11.2</axon.version>
-        <console.version>1.9.2</console.version>
+        <axon.version>5.0.0-M1</axon.version>
+<!--        <console.version>1.9.2</console.version>-->
     </properties>
 
     <dependencies>
-        <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.axonframework</groupId>
-            <artifactId>axon-spring-boot-starter</artifactId>
+            <artifactId>axon-eventsourcing</artifactId>
+            <version>${axon.version}</version>
         </dependency>
+
+        <!-- Spring Boot Starters -->
+<!--        <dependency>-->
+<!--            <groupId>org.axonframework</groupId>-->
+<!--            <artifactId>axon-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -53,21 +59,21 @@
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.axonframework.extensions.reactor</groupId>
-            <artifactId>axon-reactor-spring-boot-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.axonframework.extensions.reactor</groupId>-->
+<!--            <artifactId>axon-reactor-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>io.axoniq.console</groupId>
-            <artifactId>console-framework-client-spring-boot-starter</artifactId>
-            <version>${console.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.axoniq.console</groupId>-->
+<!--            <artifactId>console-framework-client-spring-boot-starter</artifactId>-->
+<!--            <version>${console.version}</version>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-rsocket</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-rsocket</artifactId>-->
+<!--        </dependency>-->
 
         <!-- Database -->
         <dependency>
@@ -80,6 +86,7 @@
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-test</artifactId>
+            <version>${axon.version}</version>
         </dependency>
 
         <dependency>
@@ -95,17 +102,17 @@
         </dependency>
     </dependencies>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.axonframework</groupId>
-                <artifactId>axon-bom</artifactId>
-                <version>${axon.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+<!--    <dependencyManagement>-->
+<!--        <dependencies>-->
+<!--            <dependency>-->
+<!--                <groupId>org.axonframework</groupId>-->
+<!--                <artifactId>axon-bom</artifactId>-->
+<!--                <version>${axon.version}</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
+<!--        </dependencies>-->
+<!--    </dependencyManagement>-->
 
     <build>
         <plugins>
