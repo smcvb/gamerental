@@ -7,8 +7,8 @@ import io.axoniq.demo.gamerental.coreapi.RegisterGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentGameCommand;
 import io.axoniq.demo.gamerental.coreapi.ReturnGameCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
-import org.axonframework.messaging.unitofwork.NoProcessingContext;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -48,7 +47,7 @@ class GameRentalRestController {
                                         gameDto.getDescription(),
                                         gameDto.isSingleplayer(),
                                         gameDto.isMultiplayer()),
-                NoProcessingContext.INSTANCE,
+                null,
                 String.class
         );
     }
@@ -57,7 +56,7 @@ class GameRentalRestController {
     public CompletableFuture<Void> rentGame(@PathVariable String identifier,
                                             @RequestParam String renter) {
         return commandGateway.send(new RentGameCommand(identifier, renter),
-                                   NoProcessingContext.INSTANCE,
+                                   null,
                                    Void.class);
     }
 
@@ -65,7 +64,7 @@ class GameRentalRestController {
     public CompletableFuture<Void> returnGame(@PathVariable String identifier,
                                               @RequestParam String returner) {
         return commandGateway.send(new ReturnGameCommand(identifier, returner),
-                                   NoProcessingContext.INSTANCE,
+                                   null,
                                    Void.class);
     }
 

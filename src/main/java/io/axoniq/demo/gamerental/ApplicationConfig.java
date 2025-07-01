@@ -1,9 +1,13 @@
 package io.axoniq.demo.gamerental;
 
+import jakarta.annotation.Nonnull;
+import org.axonframework.axonserver.connector.AxonServerConfiguration;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.configuration.ApplicationConfigurer;
+import org.axonframework.configuration.ComponentRegistry;
+import org.axonframework.configuration.ConfigurationEnhancer;
+import org.axonframework.eventsourcing.configuration.EventSourcedEntityModule;
 import org.axonframework.eventsourcing.configuration.EventSourcingConfigurer;
-import org.axonframework.modelling.configuration.StatefulCommandHandlingModule;
 import org.axonframework.queryhandling.QueryGateway;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
 import org.springframework.context.annotation.Bean;
@@ -13,10 +17,44 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfig {
 
     @Bean
-    public static ApplicationConfigurer axonConfigurer(StatefulCommandHandlingModule gameModule) {
+    public ConfigurationEnhancer contextSwitcher() {
+        return new ConfigurationEnhancer() {
+            @Override
+            public void enhance(@Nonnull ComponentRegistry registry) {
+                registry.registerComponent(AxonServerConfiguration.class, c -> {
+                    AxonServerConfiguration axonConfig = new AxonServerConfiguration();
+                    axonConfig.setContext("game-rental");
+                    return axonConfig;
+                });
+            }
+
+            @Override
+            public int order() {
+                return Integer.MIN_VALUE;
+            }
+        };
+    }
+
+    @Bean
+    public static ApplicationConfigurer axonConfigurer(EventSourcedEntityModule<String, ?> gameModule) {
         return EventSourcingConfigurer.create()
-                                      .modelling(modelling -> modelling.registerStatefulCommandHandlingModule(
-                                              gameModule
+                                      .componentRegistry(cr -> cr.registerModule(gameModule))
+                                      .componentRegistry(cr -> cr.registerEnhancer(
+                                              new ConfigurationEnhancer() {
+                                                  @Override
+                                                  public void enhance(@Nonnull ComponentRegistry registry) {
+                                                      registry.registerComponent(AxonServerConfiguration.class, c -> {
+                                                          AxonServerConfiguration axonConfig = new AxonServerConfiguration();
+                                                          axonConfig.setContext("game-rental");
+                                                          return axonConfig;
+                                                      });
+                                                  }
+
+                                                  @Override
+                                                  public int order() {
+                                                      return Integer.MIN_VALUE;
+                                                  }
+                                              }
                                       ));
     }
 

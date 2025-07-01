@@ -3,7 +3,7 @@ version: '3.8'
 
 services:
   axon-server:
-    image: axoniq/axonserver:latest-jdk-17-dev
+    image: axoniq/axonserver:latest
     ports:
       - "8024:8024"
       - "8124:8124"

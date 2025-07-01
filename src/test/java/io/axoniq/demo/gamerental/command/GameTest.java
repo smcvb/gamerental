@@ -9,6 +9,8 @@ import io.axoniq.demo.gamerental.coreapi.RegisterGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentalCommandException;
 import io.axoniq.demo.gamerental.coreapi.ReturnGameCommand;
+import org.axonframework.axonserver.connector.ServerConnectorConfigurationEnhancer;
+import org.axonframework.eventsourcing.configuration.EventSourcingConfigurer;
 import org.axonframework.test.fixture.AxonTestFixture;
 import org.junit.jupiter.api.*;
 
@@ -23,7 +25,11 @@ class GameTest {
 
     @BeforeEach
     void setUp() {
-        axonFixture = AxonTestFixture.with(ApplicationConfig.axonConfigurer(GameConfiguration.gameModule()));
+        axonFixture = AxonTestFixture.with(
+                EventSourcingConfigurer.create()
+                                       .componentRegistry(cr -> cr.registerModule(GameConfiguration.gameEntityModule())
+                                                                  .disableEnhancer(ServerConnectorConfigurationEnhancer.class))
+        );
     }
 
     @Test

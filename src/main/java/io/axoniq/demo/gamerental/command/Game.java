@@ -4,9 +4,15 @@ import io.axoniq.demo.gamerental.coreapi.ExceptionStatusCode;
 import io.axoniq.demo.gamerental.coreapi.GameRegisteredEvent;
 import io.axoniq.demo.gamerental.coreapi.GameRentedEvent;
 import io.axoniq.demo.gamerental.coreapi.GameReturnedEvent;
+import io.axoniq.demo.gamerental.coreapi.RegisterGameCommand;
+import io.axoniq.demo.gamerental.coreapi.RentGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentalCommandException;
+import io.axoniq.demo.gamerental.coreapi.ReturnGameCommand;
+import org.axonframework.commandhandling.annotation.CommandHandler;
+import org.axonframework.eventhandling.gateway.EventAppender;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.eventsourcing.annotation.EventSourcedEntity;
+import org.axonframework.eventsourcing.annotation.reflection.EntityCreator;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 
 import java.time.Instant;
@@ -21,21 +27,31 @@ class Game {
     private Instant releaseDate;
     private Set<String> renters;
 
-    public String gameIdentifier() {
-        return gameIdentifier;
+    @EntityCreator
+    public Game() {
+        // Required by Axon
     }
 
-    public void hasNotBeenReleasedYet() {
-        if (Instant.now().isBefore(releaseDate)) {
-            throw new RentalCommandException(
-                    ExceptionStatusCode.UNRELEASED.getDescription(),
-                    null,
-                    ExceptionStatusCode.UNRELEASED
-            );
-        }
+    @CommandHandler
+    public void handle(RegisterGameCommand command,
+                       EventAppender appender) {
+        appender.append(new GameRegisteredEvent(command.gameIdentifier(),
+                                                command.title(),
+                                                command.releaseDate(),
+                                                command.description(),
+                                                command.singleplayer(),
+                                                command.multiplayer()));
     }
 
-    public void hasInsufficientStock() {
+    @CommandHandler
+    public void handle(RentGameCommand command,
+                       EventAppender appender) {
+        hasInsufficientStock();
+        hasNotBeenReleasedYet();
+        appender.append(new GameRentedEvent(gameIdentifier, command.renter()));
+    }
+
+    private void hasInsufficientStock() {
         if (stock <= 0) {
             throw new RentalCommandException(
                     ExceptionStatusCode.INSUFFICIENT.getDescription(),
@@ -45,7 +61,24 @@ class Game {
         }
     }
 
-    public void notReturnedByOriginalRenter(String returner) {
+    private void hasNotBeenReleasedYet() {
+        if (Instant.now().isBefore(releaseDate)) {
+            throw new RentalCommandException(
+                    ExceptionStatusCode.UNRELEASED.getDescription(),
+                    null,
+                    ExceptionStatusCode.UNRELEASED
+            );
+        }
+    }
+
+    @CommandHandler
+    public void handle(ReturnGameCommand command,
+                       EventAppender appender) {
+        notReturnedByOriginalRenter(command.returner());
+        appender.append(new GameReturnedEvent(gameIdentifier, command.returner()));
+    }
+
+    private void notReturnedByOriginalRenter(String returner) {
         if (!renters.contains(returner)) {
             throw new RentalCommandException(
                     ExceptionStatusCode.DIFFERENT_RETURNER.getDescription(),
@@ -88,9 +121,5 @@ class Game {
             statusCode = ExceptionStatusCode.UNKNOWN_EXCEPTION;
         }
         throw new RentalCommandException(exception.getMessage(), exception, statusCode);
-    }
-
-    public Game() {
-        // Required by Axon
     }
 }
