@@ -43,4 +43,6 @@ module gamerental {
     requires org.axonframework.modelling;
     requires org.axonframework.spring;
     requires org.axonframework.extensions.reactor;
+    requires org.axonframework.connector.axonserver;
+    requires io.axoniq.connector.axonserver;
 }
