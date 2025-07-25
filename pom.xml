@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-spring-boot-starter</artifactId>
-            <version>4.11.3-SNAPSHOT</version>
+            <version>4.11.4-SNAPSHOT</version>
         </dependency>
 
         <dependency>
@@ -82,7 +82,7 @@
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-test</artifactId>
-            <version>4.11.3-SNAPSHOT</version>
+            <version>4.11.4-SNAPSHOT</version>
         </dependency>
 
         <dependency>
