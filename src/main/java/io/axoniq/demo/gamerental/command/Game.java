@@ -33,12 +33,12 @@ class Game {
 
     @CommandHandler
     public Game(RegisterGameCommand command) {
-        apply(new GameRegisteredEvent(command.getGameIdentifier(),
-                                      command.getTitle(),
-                                      command.getReleaseDate(),
-                                      command.getDescription(),
-                                      command.isSingleplayer(),
-                                      command.isMultiplayer()));
+        apply(new GameRegisteredEvent(command.gameIdentifier(),
+                                      command.title(),
+                                      command.releaseDate(),
+                                      command.description(),
+                                      command.singleplayer(),
+                                      command.multiplayer()));
     }
 
     @CommandHandler
@@ -53,35 +53,35 @@ class Game {
                     "Game with identifier [" + gameIdentifier + "] cannot be rented out as it has not been released yet"
             );
         }
-        apply(new GameRentedEvent(gameIdentifier, command.getRenter()));
+        apply(new GameRentedEvent(gameIdentifier, command.renter()));
     }
 
     @CommandHandler
     public void handle(ReturnGameCommand command) {
-        if (!renters.contains(command.getReturner())) {
+        if (!renters.contains(command.returner())) {
             throw new IllegalStateException("A game should be returned by someone who has actually rented it");
         }
-        apply(new GameReturnedEvent(gameIdentifier, command.getReturner()));
+        apply(new GameReturnedEvent(gameIdentifier, command.returner()));
     }
 
     @EventSourcingHandler
     public void on(GameRegisteredEvent event) {
-        this.gameIdentifier = event.getGameIdentifier();
+        this.gameIdentifier = event.gameIdentifier();
         this.stock = 1;
-        this.releaseDate = event.getReleaseDate();
+        this.releaseDate = event.releaseDate();
         this.renters = new HashSet<>();
     }
 
     @EventSourcingHandler
     public void on(GameRentedEvent event) {
         this.stock--;
-        this.renters.add(event.getRenter());
+        this.renters.add(event.renter());
     }
 
     @EventSourcingHandler
     public void on(GameReturnedEvent event) {
         this.stock++;
-        this.renters.remove(event.getReturner());
+        this.renters.remove(event.returner());
     }
 
     @ExceptionHandler(resultType = IllegalStateException.class)

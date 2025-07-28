@@ -35,41 +35,41 @@ class GameCatalogProjector {
 
     @EventHandler
     public void on(GameRegisteredEvent event) {
-        String title = event.getTitle();
+        String title = event.title();
 
-        repository.save(new GameView(event.getGameIdentifier(),
+        repository.save(new GameView(event.gameIdentifier(),
                                      title,
-                                     event.getReleaseDate(),
-                                     event.getDescription(),
-                                     event.isSingleplayer(),
-                                     event.isMultiplayer()));
+                                     event.releaseDate(),
+                                     event.description(),
+                                     event.singleplayer(),
+                                     event.multiplayer()));
 
         updateEmitter.emit(FullGameCatalogQuery.class, query -> true, title);
     }
 
     @EventHandler
     public void on(GameRentedEvent event) {
-        Optional<GameView> result = repository.findById(event.getGameIdentifier());
+        Optional<GameView> result = repository.findById(event.gameIdentifier());
         if (result.isPresent()) {
             result.get().decrementStock();
         } else {
-            throw new IllegalArgumentException("Game with id [" + event.getGameIdentifier() + "] could not be found.");
+            throw new IllegalArgumentException("Game with id [" + event.gameIdentifier() + "] could not be found.");
         }
     }
 
     @EventHandler
     public void on(GameReturnedEvent event) {
-        Optional<GameView> result = repository.findById(event.getGameIdentifier());
+        Optional<GameView> result = repository.findById(event.gameIdentifier());
         if (result.isPresent()) {
             result.get().incrementStock();
         } else {
-            throw new IllegalArgumentException("Game with id [" + event.getGameIdentifier() + "] could not be found.");
+            throw new IllegalArgumentException("Game with id [" + event.gameIdentifier() + "] could not be found.");
         }
     }
 
     @QueryHandler
     public Game handle(FindGameQuery query) {
-        String gameIdentifier = query.getGameIdentifier();
+        String gameIdentifier = query.gameIdentifier();
         return repository.findById(gameIdentifier)
                          .map(gameView -> new Game(
                                  gameView.getTitle(),

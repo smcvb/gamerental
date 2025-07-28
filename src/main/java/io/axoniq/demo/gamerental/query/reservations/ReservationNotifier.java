@@ -19,6 +19,6 @@ class ReservationNotifier {
 
     @EventHandler
     public void on(GameReturnedEvent event) {
-        reservationService.notifyGameAvailability(event.getGameIdentifier());
+        reservationService.notifyGameAvailability(event.gameIdentifier());
     }
 }
