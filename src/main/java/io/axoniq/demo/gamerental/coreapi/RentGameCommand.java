@@ -1,9 +1,9 @@
 package io.axoniq.demo.gamerental.coreapi;
 
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
+import org.axonframework.modelling.annotation.TargetEntityId;
 
 public record RentGameCommand(
-        @TargetAggregateIdentifier String gameIdentifier,
+        @TargetEntityId String gameIdentifier,
         String renter
 ) {
 

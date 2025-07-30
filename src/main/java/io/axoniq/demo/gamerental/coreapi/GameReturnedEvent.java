@@ -1,8 +1,10 @@
 package io.axoniq.demo.gamerental.coreapi;
 
+import org.axonframework.eventsourcing.annotations.EventTag;
+
 public record GameReturnedEvent(
-        String gameIdentifier,
-        String returner
+        @EventTag(key = "gameId") String gameIdentifier,
+        @EventTag(key = "renter") String returner
 ) {
 
 }

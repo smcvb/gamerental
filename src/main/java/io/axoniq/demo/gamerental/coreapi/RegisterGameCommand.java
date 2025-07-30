@@ -1,11 +1,11 @@
 package io.axoniq.demo.gamerental.coreapi;
 
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
+import org.axonframework.modelling.annotation.TargetEntityId;
 
 import java.time.Instant;
 
 public record RegisterGameCommand(
-        @TargetAggregateIdentifier String gameIdentifier,
+        @TargetEntityId String gameIdentifier,
         String title,
         Instant releaseDate,
         String description,
