@@ -26,15 +26,18 @@
 
         <java.version>21</java.version>
 
-        <axon.version>4.11.2</axon.version>
-        <console.version>1.9.2</console.version>
+        <axon.version>5.0.3-SNAPSHOT</axon.version>
     </properties>
 
     <dependencies>
         <!-- Spring Boot Starters -->
         <dependency>
-            <groupId>org.axonframework</groupId>
+            <groupId>org.axonframework.extensions.spring</groupId>
             <artifactId>axon-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.axonframework.extensions.metrics</groupId>
+            <artifactId>axon-metrics-dropwizard</artifactId>
         </dependency>
 
         <dependency>
@@ -51,17 +54,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.axonframework.extensions.reactor</groupId>
-            <artifactId>axon-reactor-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.axoniq.console</groupId>
-            <artifactId>console-framework-client-spring-boot-starter</artifactId>
-            <version>${console.version}</version>
         </dependency>
 
         <dependency>
@@ -99,7 +91,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.axonframework</groupId>
-                <artifactId>axon-bom</artifactId>
+                <artifactId>axon-framework-bom</artifactId>
                 <version>${axon.version}</version>
                 <type>pom</type>
                 <scope>import</scope>

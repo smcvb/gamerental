@@ -1,12 +1,8 @@
 package io.axoniq.demo.gamerental.coreapi;
 
-public class FullGameCatalogQuery {
+import org.axonframework.messaging.queryhandling.annotation.Query;
 
-    public FullGameCatalogQuery() {
-    }
+@Query(name = "fullGameCatalog")
+public record FullGameCatalogQuery() {
 
-    @Override
-    public String toString() {
-        return "FullGameCatalogQuery";
-    }
 }
