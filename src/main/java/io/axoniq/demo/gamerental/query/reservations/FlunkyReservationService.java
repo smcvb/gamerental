@@ -1,5 +1,6 @@
 package io.axoniq.demo.gamerental.query.reservations;
 
+import org.axonframework.messaging.core.annotation.Namespace;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -7,6 +8,7 @@ import java.util.Random;
 
 @Profile("reservations")
 @Component
+@Namespace("reservations")
 class FlunkyReservationService implements ReservationService {
 
     private final Random random = new Random();

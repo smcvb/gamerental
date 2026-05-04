@@ -11,18 +11,18 @@ import io.axoniq.demo.gamerental.coreapi.RegisterGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentalCommandException;
 import io.axoniq.demo.gamerental.coreapi.ReturnGameCommand;
+import io.axoniq.framework.axonserver.connector.api.AxonServerConfiguration;
+import io.axoniq.framework.testcontainer.AxonServerContainer;
+import io.axoniq.framework.testcontainer.AxonServerContainerUtils;
 import jakarta.annotation.Nonnull;
-import org.axonframework.axonserver.connector.AxonServerConfiguration;
-import org.axonframework.configuration.ApplicationConfigurer;
-import org.axonframework.configuration.ComponentRegistry;
-import org.axonframework.configuration.ConfigurationEnhancer;
+import org.axonframework.common.configuration.ApplicationConfigurer;
+import org.axonframework.common.configuration.ComponentRegistry;
+import org.axonframework.common.configuration.ConfigurationEnhancer;
+import org.axonframework.extension.springboot.test.AxonSpringBootTest;
 import org.axonframework.test.fixture.AxonTestFixture;
 import org.axonframework.test.fixture.MessagesRecordingConfigurationEnhancer;
-import org.axonframework.test.server.AxonServerContainer;
-import org.axonframework.test.server.AxonServerContainerUtils;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.testcontainers.junit.jupiter.Container;
@@ -34,8 +34,8 @@ import java.time.temporal.ChronoUnit;
 
 import static io.axoniq.demo.gamerental.TestUtils.*;
 
-@SpringBootTest
 @Testcontainers
+@AxonSpringBootTest
 class GameTest {
 
     private AxonTestFixture fixture;

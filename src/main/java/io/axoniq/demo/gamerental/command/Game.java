@@ -1,5 +1,8 @@
 package io.axoniq.demo.gamerental.command;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.axoniq.demo.gamerental.coreapi.ExceptionStatusCode;
 import io.axoniq.demo.gamerental.coreapi.GameRegisteredEvent;
 import io.axoniq.demo.gamerental.coreapi.GameRentedEvent;
@@ -8,18 +11,18 @@ import io.axoniq.demo.gamerental.coreapi.RegisterGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentalCommandException;
 import io.axoniq.demo.gamerental.coreapi.ReturnGameCommand;
-import org.axonframework.commandhandling.annotation.CommandHandler;
-import org.axonframework.eventhandling.gateway.EventAppender;
-import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.eventsourcing.annotation.EventSourcedEntity;
+import org.axonframework.eventsourcing.annotation.EventSourcingHandler;
 import org.axonframework.eventsourcing.annotation.reflection.EntityCreator;
+import org.axonframework.messaging.commandhandling.annotation.CommandHandler;
+import org.axonframework.messaging.eventhandling.gateway.EventAppender;
 
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
 @EventSourcedEntity(tagKey = "gameId")
-class Game {
+public class Game {
 
     private final String gameIdentifier;
     private final int stock;
@@ -34,17 +37,18 @@ class Game {
         this.renters = new HashSet<>();
     }
 
-    private Game(String gameIdentifier,
-                 int stock,
-                 Instant releaseDate,
-                 Set<String> renters) {
+    @JsonCreator
+    private Game(@JsonProperty("gameIdentifier") String gameIdentifier,
+                 @JsonProperty("stock") int stock,
+                 @JsonProperty("releaseDate") Instant releaseDate,
+                 @JsonProperty("renters") Set<String> renters) {
         this.gameIdentifier = gameIdentifier;
         this.stock = stock;
         this.releaseDate = releaseDate;
         this.renters = renters;
     }
 
-    @CommandHandler
+    @CommandHandler(commandName = "game-rental.register")
     public static void handle(RegisterGameCommand command, EventAppender appender) {
         appender.append(new GameRegisteredEvent(command.gameIdentifier(),
                                                 command.title(),
@@ -54,7 +58,7 @@ class Game {
                                                 command.multiplayer()));
     }
 
-    @CommandHandler
+    @CommandHandler(commandName = "game-rental.rent")
     public void handle(RentGameCommand command, EventAppender appender) {
         if (stock <= 0) {
             throw new RentalCommandException(ExceptionStatusCode.INSUFFICIENT.getDescription(),
@@ -69,7 +73,7 @@ class Game {
         appender.append(new GameRentedEvent(gameIdentifier, command.renter()));
     }
 
-    @CommandHandler
+    @CommandHandler(commandName = "game-rental.return")
     public void handle(ReturnGameCommand command, EventAppender appender) {
         if (!renters.contains(command.returner())) {
             throw new RentalCommandException(ExceptionStatusCode.DIFFERENT_RETURNER.getDescription(),
@@ -91,5 +95,25 @@ class Game {
         Set<String> newRenters = new HashSet<>(renters);
         newRenters.remove(event.returner());
         return new Game(this.gameIdentifier, this.stock + 1, this.releaseDate, newRenters);
+    }
+
+    @JsonGetter
+    public String gameIdentifier() {
+        return gameIdentifier;
+    }
+
+    @JsonGetter
+    public int stock() {
+        return stock;
+    }
+
+    @JsonGetter
+    public Instant releaseDate() {
+        return releaseDate;
+    }
+
+    @JsonGetter
+    public Set<String> renters() {
+        return renters;
     }
 }

@@ -8,15 +8,12 @@ import io.axoniq.demo.gamerental.coreapi.GameRegisteredEvent;
 import io.axoniq.demo.gamerental.coreapi.GameRentedEvent;
 import io.axoniq.demo.gamerental.coreapi.GameReturnedEvent;
 import io.axoniq.demo.gamerental.coreapi.RentalQueryException;
-import org.axonframework.queryhandling.QueryUpdateEmitter;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.axonframework.messaging.queryhandling.QueryUpdateEmitter;
+import org.junit.jupiter.api.*;
 import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +30,7 @@ class GameCatalogProjectorTest {
             GAME_IDENTIFIER, TITLE, RELEASE_DATE, DESCRIPTION, true, true
     );
 
-    @SpyBean
+    @Spy
     private GameViewRepository repository;
     private QueryUpdateEmitter updateEmitter;
 
@@ -46,7 +43,7 @@ class GameCatalogProjectorTest {
     void setUp() {
         updateEmitter = mock(QueryUpdateEmitter.class);
 
-        testSubject = new GameCatalogProjector(repository, updateEmitter);
+        testSubject = new GameCatalogProjector(repository);
     }
 
     @AfterEach
@@ -56,7 +53,8 @@ class GameCatalogProjectorTest {
 
     @Test
     void testGameRegisteredEventStoresGameViewAndEmitsGameTitle() {
-        testSubject.on(new GameRegisteredEvent(GAME_IDENTIFIER, TITLE, RELEASE_DATE, DESCRIPTION, true, true));
+        testSubject.on(new GameRegisteredEvent(GAME_IDENTIFIER, TITLE, RELEASE_DATE, DESCRIPTION, true, true),
+                       updateEmitter);
         entityManager.flush();
 
         Optional<GameView> resultOptional = repository.findById(GAME_IDENTIFIER);

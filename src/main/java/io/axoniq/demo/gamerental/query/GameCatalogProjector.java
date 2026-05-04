@@ -8,10 +8,11 @@ import io.axoniq.demo.gamerental.coreapi.GameRegisteredEvent;
 import io.axoniq.demo.gamerental.coreapi.GameRentedEvent;
 import io.axoniq.demo.gamerental.coreapi.GameReturnedEvent;
 import io.axoniq.demo.gamerental.coreapi.RentalQueryException;
-import org.axonframework.eventhandling.annotation.EventHandler;
-import org.axonframework.messaging.interceptors.ExceptionHandler;
-import org.axonframework.queryhandling.QueryUpdateEmitter;
-import org.axonframework.queryhandling.annotation.QueryHandler;
+import org.axonframework.messaging.core.annotation.Namespace;
+import org.axonframework.messaging.core.interception.annotation.ExceptionHandler;
+import org.axonframework.messaging.eventhandling.annotation.EventHandler;
+import org.axonframework.messaging.queryhandling.QueryUpdateEmitter;
+import org.axonframework.messaging.queryhandling.annotation.QueryHandler;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -21,18 +22,18 @@ import java.util.stream.Collectors;
 
 @Profile("query")
 @Component
+@Namespace("catalog")
 class GameCatalogProjector {
 
     private final GameViewRepository repository;
-    private final QueryUpdateEmitter updateEmitter;
 
-    public GameCatalogProjector(GameViewRepository repository, QueryUpdateEmitter updateEmitter) {
+    public GameCatalogProjector(GameViewRepository repository) {
         this.repository = repository;
-        this.updateEmitter = updateEmitter;
     }
 
-    @EventHandler
-    public void on(GameRegisteredEvent event) {
+    @EventHandler(eventName = "game-rental.registered")
+    public void on(GameRegisteredEvent event,
+                   QueryUpdateEmitter updateEmitter) {
         String title = event.title();
 
         repository.save(new GameView(event.gameIdentifier(),
@@ -45,7 +46,7 @@ class GameCatalogProjector {
         updateEmitter.emit(FullGameCatalogQuery.class, query -> true, title);
     }
 
-    @EventHandler
+    @EventHandler(eventName = "game-rental.rented")
     public void on(GameRentedEvent event) {
         Optional<GameView> result = repository.findById(event.gameIdentifier());
         if (result.isPresent()) {
@@ -55,7 +56,7 @@ class GameCatalogProjector {
         }
     }
 
-    @EventHandler
+    @EventHandler(eventName = "game-rental.returned")
     public void on(GameReturnedEvent event) {
         Optional<GameView> result = repository.findById(event.gameIdentifier());
         if (result.isPresent()) {
@@ -65,7 +66,7 @@ class GameCatalogProjector {
         }
     }
 
-    @QueryHandler
+    @QueryHandler(queryName = "game-rental.find")
     public Game handle(FindGameQuery query) {
         String gameIdentifier = query.gameIdentifier();
         return repository.findById(gameIdentifier)
@@ -81,7 +82,7 @@ class GameCatalogProjector {
                          ));
     }
 
-    @QueryHandler
+    @QueryHandler(queryName = "game-rental.full")
     public List<String> handle(FullGameCatalogQuery query) {
         return repository.findAll().stream()
                          .map(GameView::getTitle)

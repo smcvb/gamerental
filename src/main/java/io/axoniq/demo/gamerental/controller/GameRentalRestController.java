@@ -6,10 +6,8 @@ import io.axoniq.demo.gamerental.coreapi.Game;
 import io.axoniq.demo.gamerental.coreapi.RegisterGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentGameCommand;
 import io.axoniq.demo.gamerental.coreapi.ReturnGameCommand;
-import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.messaging.responsetypes.ResponseTypes;
-import org.axonframework.queryhandling.QueryGateway;
-import org.axonframework.queryhandling.SubscriptionQueryResult;
+import org.axonframework.messaging.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.queryhandling.gateway.QueryGateway;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +29,8 @@ class GameRentalRestController {
     private final CommandGateway commandGateway;
     private final QueryGateway queryGateway;
 
-    public GameRentalRestController(CommandGateway commandGateway, QueryGateway queryGateway) {
+    public GameRentalRestController(CommandGateway commandGateway,
+                                    QueryGateway queryGateway) {
         this.commandGateway = commandGateway;
         this.queryGateway = queryGateway;
     }
@@ -45,20 +44,19 @@ class GameRentalRestController {
                                                            gameDto.getDescription(),
                                                            gameDto.isSingleplayer(),
                                                            gameDto.isMultiplayer()),
-                                   null,
                                    String.class);
     }
 
     @PostMapping("/rent/{identifier}")
     public CompletableFuture<Void> rentGame(@PathVariable String identifier,
                                             @RequestParam String renter) {
-        return commandGateway.send(new RentGameCommand(identifier, renter), null, Void.class);
+        return commandGateway.send(new RentGameCommand(identifier, renter), Void.class);
     }
 
     @PostMapping("/return/{identifier}")
     public CompletableFuture<Void> returnGame(@PathVariable String identifier,
                                               @RequestParam String returner) {
-        return commandGateway.send(new ReturnGameCommand(identifier, returner), null, Void.class);
+        return commandGateway.send(new ReturnGameCommand(identifier, returner), Void.class);
     }
 
     @GetMapping("/{identifier}")
@@ -68,16 +66,11 @@ class GameRentalRestController {
 
     @GetMapping("/catalog")
     public CompletableFuture<List<String>> findGameCatalog() {
-        return queryGateway.query(new FullGameCatalogQuery(), ResponseTypes.multipleInstancesOf(String.class));
+        return queryGateway.queryMany(new FullGameCatalogQuery(), String.class);
     }
 
     @GetMapping(value = "/catalog/watch", produces = "text/event-stream")
     public Flux<String> watchGameCatalog() {
-        SubscriptionQueryResult<List<String>, String> result = queryGateway.subscriptionQuery(
-                new FullGameCatalogQuery(),
-                ResponseTypes.multipleInstancesOf(String.class),
-                ResponseTypes.instanceOf(String.class)
-        );
-        return Flux.concat(result.initialResult().flatMapMany(Flux::fromIterable), result.updates());
+        return Flux.from(queryGateway.subscriptionQuery(new FullGameCatalogQuery(), String.class));
     }
 }

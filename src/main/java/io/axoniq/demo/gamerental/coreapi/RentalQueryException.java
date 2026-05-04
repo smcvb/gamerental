@@ -1,6 +1,6 @@
 package io.axoniq.demo.gamerental.coreapi;
 
-import org.axonframework.queryhandling.QueryExecutionException;
+import org.axonframework.messaging.queryhandling.QueryExecutionException;
 
 public class RentalQueryException extends QueryExecutionException {
 
