@@ -1,6 +1,6 @@
 package io.axoniq.demo.gamerental.coreapi;
 
-import org.axonframework.commandhandling.CommandExecutionException;
+import org.axonframework.messaging.commandhandling.CommandExecutionException;
 
 public class RentalCommandException extends CommandExecutionException {
 

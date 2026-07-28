@@ -1,12 +1,12 @@
 package io.axoniq.demo.gamerental.query.reservations;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static io.axoniq.demo.gamerental.TestUtils.GAME_IDENTIFIER;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FlunkyReservationServiceTest {
 

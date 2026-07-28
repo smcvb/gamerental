@@ -6,33 +6,32 @@ import io.axoniq.demo.gamerental.coreapi.Game;
 import io.axoniq.demo.gamerental.coreapi.RegisterGameCommand;
 import io.axoniq.demo.gamerental.coreapi.RentGameCommand;
 import io.axoniq.demo.gamerental.coreapi.ReturnGameCommand;
-import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway;
-import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway;
-import org.axonframework.messaging.responsetypes.MultipleInstancesResponseType;
+import org.axonframework.messaging.commandhandling.gateway.CommandGateway;
+import org.axonframework.messaging.queryhandling.gateway.QueryGateway;
 import org.junit.jupiter.api.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import static io.axoniq.demo.gamerental.TestUtils.*;
 import static org.mockito.Mockito.*;
 
 class GameRentalRestControllerTest {
 
-    private ReactorCommandGateway commandGateway;
-    private ReactorQueryGateway queryGateway;
+    private CommandGateway commandGateway;
+    private QueryGateway queryGateway;
 
     private WebTestClient testClient;
 
     @BeforeEach
     void setUp() {
-        commandGateway = mock(ReactorCommandGateway.class);
-        queryGateway = mock(ReactorQueryGateway.class);
+        commandGateway = mock(CommandGateway.class);
+        queryGateway = mock(QueryGateway.class);
 
         testClient = WebTestClient.bindToController(new GameRentalRestController(commandGateway, queryGateway)).build();
     }
@@ -46,7 +45,8 @@ class GameRentalRestControllerTest {
                 GAME_IDENTIFIER, testDto.getTitle(), testDto.getReleaseDate(), testDto.getDescription(),
                 testDto.isSingleplayer(), testDto.isMultiplayer()
         );
-        when(commandGateway.send(expectedCommand)).thenReturn(Mono.just(GAME_IDENTIFIER));
+        when(commandGateway.send(expectedCommand, String.class))
+                .thenReturn(CompletableFuture.completedFuture(GAME_IDENTIFIER));
 
         testClient.post()
                   .uri(uriBuilder -> uriBuilder.path("/rental/register/{identifier}")
@@ -57,7 +57,7 @@ class GameRentalRestControllerTest {
                   .expectStatus().isOk()
                   .expectBody(String.class).isEqualTo(GAME_IDENTIFIER);
 
-        verify(commandGateway).send(expectedCommand);
+        verify(commandGateway).send(expectedCommand, String.class);
     }
 
     @Test
@@ -70,7 +70,7 @@ class GameRentalRestControllerTest {
                   .expectStatus().isOk()
                   .expectBody().isEmpty();
 
-        verify(commandGateway).send(new RentGameCommand(GAME_IDENTIFIER, RENTER));
+        verify(commandGateway).send(new RentGameCommand(GAME_IDENTIFIER, RENTER), Void.class);
     }
 
     @Test
@@ -83,13 +83,14 @@ class GameRentalRestControllerTest {
                   .expectStatus().isOk()
                   .expectBody().isEmpty();
 
-        verify(commandGateway).send(new ReturnGameCommand(GAME_IDENTIFIER, RENTER));
+        verify(commandGateway).send(new ReturnGameCommand(GAME_IDENTIFIER, RENTER), Void.class);
     }
 
     @Test
     void testFindGame() {
         Game expectedGame = new Game(TITLE, RELEASE_DATE, DESCRIPTION, true, true);
-        when(queryGateway.query(new FindGameQuery(GAME_IDENTIFIER), Game.class)).thenReturn(Mono.just(expectedGame));
+        when(queryGateway.query(new FindGameQuery(GAME_IDENTIFIER), Game.class))
+                .thenReturn(CompletableFuture.completedFuture(expectedGame));
 
         testClient.get()
                   .uri(uriBuilder -> uriBuilder.path("/rental/{identifier}")
@@ -107,9 +108,8 @@ class GameRentalRestControllerTest {
         List<String> expectedTitles = new ArrayList<>();
         expectedTitles.add(TITLE);
         expectedTitles.add(OTHER_TITLE);
-        //noinspection unchecked
-        when(queryGateway.query(any(FullGameCatalogQuery.class), any(MultipleInstancesResponseType.class)))
-                .thenReturn(Mono.just(expectedTitles));
+        when(queryGateway.queryMany(any(FullGameCatalogQuery.class), eq(String.class)))
+                .thenReturn(CompletableFuture.completedFuture(expectedTitles));
 
         testClient.get()
                   .uri(uriBuilder -> uriBuilder.path("/rental/catalog")
@@ -119,15 +119,14 @@ class GameRentalRestControllerTest {
                   .expectHeader().contentType(MediaType.APPLICATION_JSON)
                   .expectBody(List.class).isEqualTo(expectedTitles);
 
-        //noinspection unchecked
-        verify(queryGateway).query(any(FullGameCatalogQuery.class), any(MultipleInstancesResponseType.class));
+        verify(queryGateway).queryMany(any(FullGameCatalogQuery.class), eq(String.class));
     }
 
     @Test
     void testWatchGameCatalog() {
         String expectedMediaType = MediaType.TEXT_EVENT_STREAM_VALUE + ";charset=UTF-8";
 
-        when(queryGateway.subscriptionQueryMany(any(FullGameCatalogQuery.class), eq(String.class)))
+        when(queryGateway.subscriptionQuery(any(FullGameCatalogQuery.class), eq(String.class)))
                 .thenReturn(Flux.just(TITLE, OTHER_TITLE));
 
         Flux<String> result = testClient.get()
@@ -144,6 +143,6 @@ class GameRentalRestControllerTest {
                     .expectComplete()
                     .verify();
 
-        verify(queryGateway).subscriptionQueryMany(any(FullGameCatalogQuery.class), eq(String.class));
+        verify(queryGateway).subscriptionQuery(any(FullGameCatalogQuery.class), eq(String.class));
     }
 }

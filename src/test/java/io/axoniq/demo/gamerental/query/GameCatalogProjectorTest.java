@@ -8,10 +8,8 @@ import io.axoniq.demo.gamerental.coreapi.GameRegisteredEvent;
 import io.axoniq.demo.gamerental.coreapi.GameRentedEvent;
 import io.axoniq.demo.gamerental.coreapi.GameReturnedEvent;
 import io.axoniq.demo.gamerental.coreapi.RentalQueryException;
-import org.axonframework.queryhandling.QueryUpdateEmitter;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.axonframework.messaging.queryhandling.QueryUpdateEmitter;
+import org.junit.jupiter.api.*;
 import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -46,7 +44,7 @@ class GameCatalogProjectorTest {
     void setUp() {
         updateEmitter = mock(QueryUpdateEmitter.class);
 
-        testSubject = new GameCatalogProjector(repository, updateEmitter);
+        testSubject = new GameCatalogProjector(repository);
     }
 
     @AfterEach
@@ -56,7 +54,8 @@ class GameCatalogProjectorTest {
 
     @Test
     void testGameRegisteredEventStoresGameViewAndEmitsGameTitle() {
-        testSubject.on(new GameRegisteredEvent(GAME_IDENTIFIER, TITLE, RELEASE_DATE, DESCRIPTION, true, true));
+        testSubject.on(new GameRegisteredEvent(GAME_IDENTIFIER, TITLE, RELEASE_DATE, DESCRIPTION, true, true),
+                       updateEmitter);
         entityManager.flush();
 
         Optional<GameView> resultOptional = repository.findById(GAME_IDENTIFIER);

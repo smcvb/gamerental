@@ -1,10 +1,15 @@
 package io.axoniq.demo.gamerental.coreapi;
 
+import org.axonframework.eventsourcing.annotation.EventTag;
+import org.axonframework.messaging.eventhandling.annotation.Event;
+
 import java.beans.ConstructorProperties;
 import java.util.Objects;
 
+@Event
 public class GameRentedEvent {
 
+    @EventTag(key = "Game")
     private final String gameIdentifier;
     private final String renter;
 

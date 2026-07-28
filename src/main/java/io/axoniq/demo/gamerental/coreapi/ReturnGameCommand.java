@@ -1,13 +1,15 @@
 package io.axoniq.demo.gamerental.coreapi;
 
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
+import org.axonframework.messaging.commandhandling.annotation.Command;
+import org.axonframework.modelling.annotation.TargetEntityId;
 
 import java.beans.ConstructorProperties;
 import java.util.Objects;
 
+@Command(routingKey = "gameIdentifier")
 public class ReturnGameCommand {
 
-    @TargetAggregateIdentifier
+    @TargetEntityId
     private final String gameIdentifier;
     private final String returner;
 

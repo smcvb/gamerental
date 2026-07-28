@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.5</version>
+        <version>3.5.16</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -26,15 +26,15 @@
 
         <java.version>21</java.version>
 
-        <axon.version>4.11.2</axon.version>
+        <axon.version>5.2.2</axon.version>
         <console.version>1.9.2</console.version>
     </properties>
 
     <dependencies>
         <!-- Spring Boot Starters -->
         <dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-spring-boot-starter</artifactId>
+            <groupId>io.axoniq.framework</groupId>
+            <artifactId>axoniq-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -55,7 +55,8 @@
 
         <dependency>
             <groupId>org.axonframework.extensions.reactor</groupId>
-            <artifactId>axon-reactor-spring-boot-starter</artifactId>
+            <artifactId>axon-reactor</artifactId>
+            <version>${axon.version}</version>
         </dependency>
 
         <dependency>
@@ -63,6 +64,18 @@
             <artifactId>console-framework-client-spring-boot-starter</artifactId>
             <version>${console.version}</version>
         </dependency>
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-eventsourcing</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-modelling</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.axoniq.framework</groupId>
+      <artifactId>axoniq-dead-letter</artifactId>
+    </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -98,8 +111,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.axonframework</groupId>
-                <artifactId>axon-bom</artifactId>
+                <groupId>io.axoniq.framework</groupId>
+                <artifactId>axoniq-framework-bom</artifactId>
                 <version>${axon.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -116,7 +129,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.3</version>
             </plugin>
         </plugins>
     </build>

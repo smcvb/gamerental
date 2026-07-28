@@ -3,8 +3,8 @@ package io.axoniq.demo.gamerental;
 import io.axoniq.demo.gamerental.coreapi.ExceptionStatusCode;
 import io.axoniq.demo.gamerental.coreapi.RentalCommandException;
 import io.axoniq.demo.gamerental.coreapi.RentalQueryException;
-import org.axonframework.commandhandling.CommandExecutionException;
-import org.axonframework.queryhandling.QueryExecutionException;
+import org.axonframework.messaging.commandhandling.CommandExecutionException;
+import org.axonframework.messaging.queryhandling.QueryExecutionException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

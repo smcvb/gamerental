@@ -1,11 +1,13 @@
 package io.axoniq.demo.gamerental.query.reservations;
 
 import io.axoniq.demo.gamerental.coreapi.GameReturnedEvent;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static io.axoniq.demo.gamerental.TestUtils.GAME_IDENTIFIER;
 import static io.axoniq.demo.gamerental.TestUtils.RENTER;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.mock;
 
 class ReservationNotifierTest {
 
