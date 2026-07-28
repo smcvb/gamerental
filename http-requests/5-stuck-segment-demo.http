@@ -1,0 +1,14 @@
+### Toggle the stuck-segment demo: activates (blocks segment 0 and starts publishing) or deactivates
+POST http://localhost:8080/diagnostics/stuck-segment/toggle
+
+###
+
+### Toggle, explicitly targeting a different segment (0-3) to block on activation
+POST http://localhost:8080/diagnostics/stuck-segment/toggle?targetSegment=2
+
+###
+
+### Check status: active flag, currently targeted (blocked) segment key, and per-key handled counts
+GET http://localhost:8080/diagnostics/stuck-segment/status
+
+###
