@@ -12,9 +12,9 @@ import org.axonframework.messaging.queryhandling.QueryUpdateEmitter;
 import org.junit.jupiter.api.*;
 import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.mock.mockito.SpyBean;
+import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +31,7 @@ class GameCatalogProjectorTest {
             GAME_IDENTIFIER, TITLE, RELEASE_DATE, DESCRIPTION, true, true
     );
 
-    @SpyBean
+    @MockitoSpyBean
     private GameViewRepository repository;
     private QueryUpdateEmitter updateEmitter;
 
